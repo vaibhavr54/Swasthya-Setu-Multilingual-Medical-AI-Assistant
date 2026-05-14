@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swasthya Setu — स्वास्थ्य सेतु</title>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="page-wrap">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <div>
+          <div class="nav-title">Swasthya <span>Setu</span></div>
+          <div class="nav-sub">स्वास्थ्य सेतु — Health Bridge</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="pages/voice.html" class="nav-link">Voice Assistant</a>
+        <a href="pages/document.html" class="nav-link">Document Analyzer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- Hero -->
+      <div style="text-align:center; padding: 3rem 0 2.5rem;">
+        <div style="display:inline-flex; align-items:center; gap:8px; background:var(--primary-pale); color:var(--primary); font-size:13px; font-weight:500; padding:6px 16px; border-radius:99px; margin-bottom:1.25rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v8M8 12h8"/></svg>
+          Powered by Sarvam AI — Built for Bharat
+        </div>
+        <h1 style="font-size:2rem; font-weight:700; color:var(--text-primary); line-height:1.3; margin-bottom:1rem;">
+          Healthcare in <span style="color:var(--primary);">your language</span><br/>for every Indian
+        </h1>
+        <p style="font-size:15px; color:var(--text-secondary); max-width:520px; margin:0 auto 2rem; line-height:1.7;">
+          Speak your symptoms in Hindi, Marathi, Tamil or any Indian language. Understand your prescriptions. Get clear health guidance — no English required.
+        </p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="pages/voice.html" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            Voice Symptom Check
+          </a>
+          <a href="pages/document.html" class="btn btn-outline btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Analyze Prescription
+          </a>
+        </div>
+      </div>
+
+      <!-- Mode Cards -->
+      <div class="two-col" style="margin-bottom:2.5rem;">
+
+        <a href="pages/voice.html" class="card" style="cursor:pointer; transition:box-shadow 0.2s, transform 0.2s; display:block;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+          <div style="width:48px; height:48px; background:var(--primary-pale); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </div>
+          <h2 style="font-size:17px; font-weight:600; margin-bottom:6px;">Voice Symptom Assistant</h2>
+          <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:1rem;">Speak your symptoms in any Indian language. Get triage guidance, urgency level, and next steps — spoken back in your language.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <span class="badge badge-info">Saaras STT</span>
+            <span class="badge badge-info">sarvam-m</span>
+            <span class="badge badge-info">Bulbul TTS</span>
+            <span class="badge badge-muted">10+ languages</span>
+          </div>
+        </a>
+
+        <a href="pages/document.html" class="card" style="cursor:pointer; transition:box-shadow 0.2s, transform 0.2s; display:block;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+          <div style="width:48px; height:48px; background:var(--accent-pale); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h2 style="font-size:17px; font-weight:600; margin-bottom:6px;">Medical Document Analyzer</h2>
+          <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:1rem;">Upload a prescription or discharge summary. Get a plain-language breakdown of every medicine, dosage, and instruction in your language.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <span class="badge badge-info">Sarvam Vision</span>
+            <span class="badge badge-info">sarvam-m</span>
+            <span class="badge badge-info">Mayura</span>
+            <span class="badge badge-muted">OCR + Translation</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- How it works -->
+      <div class="card" style="margin-bottom:2rem;">
+        <h2 style="font-size:16px; font-weight:600; margin-bottom:1.25rem; color:var(--text-primary);">How it works</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1.25rem;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:1.25rem;">🎙️</div>
+            <div style="font-size:13px; font-weight:600;">Speak or Upload</div>
+            <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">Describe symptoms by voice or upload a prescription image</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:1.25rem;">🔍</div>
+            <div style="font-size:13px; font-weight:600;">AI Analysis</div>
+            <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">Sarvam AI transcribes, understands, and analyzes in real time</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:1.25rem;">🗣️</div>
+            <div style="font-size:13px; font-weight:600;">Get Guidance</div>
+            <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">Receive triage results or prescription explanation in your language</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:1.25rem;">🔊</div>
+            <div style="font-size:13px; font-weight:600;">Listen Back</div>
+            <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">All responses read aloud — accessible for low-literacy users</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div style="background:var(--warning-pale); border:1px solid rgba(186,117,23,0.2); border-radius:var(--radius-md); padding:1rem 1.25rem; display:flex; gap:10px; align-items:flex-start;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <p style="font-size:12px; color:var(--warning); line-height:1.6;"><strong>Disclaimer:</strong> Swasthya Setu is a triage and information tool only. It does not diagnose, prescribe, or replace professional medical advice. Always consult a qualified doctor for medical decisions.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    Swasthya Setu — Built with Sarvam AI APIs &nbsp;·&nbsp; For educational purposes only
+  </footer>
+
+</body>
+</html>

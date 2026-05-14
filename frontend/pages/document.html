@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document Analyzer — Swasthya Setu</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+</head>
+<body class="page-wrap">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <div>
+          <div class="nav-title">Swasthya <span>Setu</span></div>
+          <div class="nav-sub">स्वास्थ्य सेतु — Health Bridge</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="voice.html" class="nav-link">Voice Assistant</a>
+        <a href="document.html" class="nav-link active">Document Analyzer</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Medical Document Analyzer</h1>
+        <p>Upload a prescription or discharge summary — get a plain-language explanation in your language</p>
+      </div>
+
+      <div class="two-col" style="align-items:start;">
+
+        <!-- Left: Input Panel -->
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+
+          <!-- Language Selector -->
+          <div class="card card-sm">
+            <div class="form-group">
+              <label for="language-select">Explain in this language</label>
+              <select id="language-select">
+                <option value="en-IN">English</option>
+                <option value="hi-IN">Hindi — हिंदी</option>
+                <option value="mr-IN">Marathi — मराठी</option>
+                <option value="ta-IN">Tamil — தமிழ்</option>
+                <option value="te-IN">Telugu — తెలుగు</option>
+                <option value="kn-IN">Kannada — ಕನ್ನಡ</option>
+                <option value="gu-IN">Gujarati — ગુજરાતી</option>
+                <option value="bn-IN">Bengali — বাংলা</option>
+                <option value="ml-IN">Malayalam — മലയാളം</option>
+                <option value="pa-IN">Punjabi — ਪੰਜਾਬੀ</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Upload Zone -->
+          <div class="card" style="padding:1.25rem;">
+            <label for="file-input" style="display:block; margin-bottom:10px; font-size:13px; font-weight:500; color:var(--text-secondary);">Upload document</label>
+            <div class="upload-zone" id="upload-zone">
+              <input type="file" id="file-input" accept="image/*,.pdf"/>
+              <div class="upload-icon">📄</div>
+              <p class="upload-text">Click to upload or drag & drop</p>
+              <p class="upload-hint">Supports JPG, PNG, PDF · Max 10MB</p>
+            </div>
+
+            <!-- File Preview -->
+            <div id="file-preview" class="hidden" style="margin-top:12px;">
+              <div style="display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span id="file-name" style="font-size:13px; color:var(--text-secondary); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></span>
+                <button class="btn btn-outline" id="clear-file-btn" style="padding:4px 10px; font-size:12px;">Remove</button>
+              </div>
+              <!-- Image preview -->
+              <div id="img-preview-wrap" class="hidden" style="margin-top:8px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--border);">
+                <img id="img-preview" style="width:100%; display:block; max-height:200px; object-fit:contain; background:var(--bg);"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analyze Button -->
+          <button class="btn btn-accent btn-lg btn-full" id="analyze-btn" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Analyze Document
+          </button>
+
+          <!-- Status Bar -->
+          <div class="status-bar hidden" id="status-bar">
+            <div class="spinner" style="border-top-color:var(--accent);"></div>
+            <span id="status-text">Processing...</span>
+          </div>
+
+          <!-- OCR Raw Text -->
+          <div class="card card-sm hidden" id="ocr-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <span class="result-title">Extracted text (OCR)</span>
+              <button class="btn btn-outline" id="toggle-ocr-btn" style="padding:4px 10px; font-size:12px;">Show</button>
+            </div>
+            <div id="ocr-text-box" class="hidden transcript-box" style="font-style:normal; font-size:12px; max-height:140px; overflow-y:auto;"></div>
+          </div>
+
+        </div>
+
+        <!-- Right: Results Panel -->
+        <div id="results-panel" class="hidden" style="display:flex; flex-direction:column; gap:1rem;">
+
+          <!-- Patient Info -->
+          <div class="card card-sm" id="patient-info-card">
+            <span class="result-title" style="display:block; margin-bottom:10px;">Document info</span>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Patient</div>
+                <div id="patient-name" style="font-size:14px; color:var(--text-primary); margin-top:2px;">—</div>
+              </div>
+              <div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Doctor</div>
+                <div id="doctor-name" style="font-size:14px; color:var(--text-primary); margin-top:2px;">—</div>
+              </div>
+              <div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Date</div>
+                <div id="doc-date" style="font-size:14px; color:var(--text-primary); margin-top:2px;">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="card card-sm">
+            <div class="result-header" style="margin-bottom:8px;">
+              <span class="result-title">Summary</span>
+              <button class="btn btn-primary" id="speak-btn" style="padding:6px 14px; font-size:12px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                Listen
+              </button>
+            </div>
+            <div class="summary-box" id="summary-text">—</div>
+            <div class="audio-player hidden" id="tts-player" style="margin-top:10px;">
+              <span class="audio-label">Summary audio</span>
+              <audio id="tts-audio" controls></audio>
+            </div>
+          </div>
+
+          <!-- Medications -->
+          <div class="card card-sm">
+            <span class="result-title" style="display:block; margin-bottom:10px;">Medications</span>
+            <div id="medications-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="card card-sm hidden" id="instructions-card">
+            <span class="result-title" style="display:block; margin-bottom:8px;">Special instructions</span>
+            <ul class="instructions-list" id="instructions-list"></ul>
+          </div>
+
+          <!-- Disclaimer -->
+          <div style="background:var(--warning-pale); border:1px solid rgba(186,117,23,0.2); border-radius:var(--radius-sm); padding:10px 12px; font-size:12px; color:var(--warning); line-height:1.6;">
+            ⚠️ This explanation is for information only. Always follow your doctor's original prescription and advice.
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Swasthya Setu — Built with Sarvam AI APIs &nbsp;·&nbsp; For educational purposes only
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/document.js"></script>
+</body>
+</html>
