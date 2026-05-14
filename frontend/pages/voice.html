@@ -235,6 +235,23 @@
             <ul class="instructions-list" id="followup-list"></ul>
           </div>
 
+          <!-- Follow-up Chat -->
+          <div class="compact-card followup-section" id="followup-chat-section">
+            <div class="compact-label" style="margin-bottom:8px;">Ask a follow-up question</div>
+            <div class="chat-history" id="chat-history"></div>
+            <div class="chat-input-row">
+              <button class="mic-mini" id="followup-mic-btn" title="Ask by voice">
+                <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              </button>
+              <input type="text" id="followup-text-input" placeholder="Type your question here..." />
+              <button class="btn btn-primary" id="followup-send-btn" style="padding:8px 14px; font-size:13px; white-space:nowrap;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Send
+              </button>
+            </div>
+            <p id="followup-status" style="font-size:12px; color:var(--text-muted); margin-top:6px; display:none;">Thinking...</p>
+          </div>
+
         </div>
       </div>
     </div>

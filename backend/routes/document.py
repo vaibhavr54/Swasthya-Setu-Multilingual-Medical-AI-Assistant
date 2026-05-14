@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from fastapi.responses import Response
-from services.sarvam import extract_text_from_image, translate_text, text_to_speech
 from services.llm import explain_prescription
+from services.sarvam import extract_text_from_image, translate_text, text_to_speech, speech_to_text
 
 router = APIRouter()
 
@@ -62,5 +62,56 @@ async def speak_summary(
             media_type="audio/wav",
             headers={"Content-Disposition": "inline; filename=summary.wav"}
         )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@router.post("/followup")
+async def document_followup(
+    question_audio: UploadFile = File(None),
+    question: str = Form(default=""),
+    language_code: str = Form(default="en-IN"),
+    prescription_context: str = Form(...),
+    history: str = Form(default="[]")
+):
+    import json
+    from services.llm import answer_followup
+
+    try:
+        # Get question from audio or text
+        if question_audio and question_audio.filename:
+            audio_bytes = await question_audio.read()
+            stt_result = speech_to_text(audio_bytes, language_code)
+            question_transcript = stt_result.get("transcript", "")
+            detected_lang = stt_result.get("language_code", language_code)
+        else:
+            question_transcript = question
+            detected_lang = language_code
+
+        if not question_transcript.strip():
+            raise HTTPException(status_code=400, detail="No question provided.")
+
+        # Translate to English for LLM
+        question_en = question_transcript
+        if not detected_lang.startswith("en"):
+            question_en = translate_text(question_transcript, detected_lang, "en-IN")
+
+        context = json.loads(prescription_context)
+        conv_history = json.loads(history)
+
+        answer_en = answer_followup(question_en, context, "prescription", conv_history)
+
+        # Translate answer back
+        answer_translated = answer_en
+        if not detected_lang.startswith("en"):
+            answer_translated = translate_text(answer_en, "en-IN", detected_lang)
+
+        return {
+            "question": question_transcript,
+            "answer": answer_translated,
+            "language_code": detected_lang,
+        }
+
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

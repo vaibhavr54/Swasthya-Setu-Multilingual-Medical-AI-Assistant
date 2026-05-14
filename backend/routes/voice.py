@@ -93,3 +93,55 @@ async def speak_text(
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.post("/followup")
+async def voice_followup(
+    question_audio: UploadFile = File(None),
+    question_text: str = Form(default=""),
+    language_code: str = Form(default="en-IN"),
+    triage_context: str = Form(...),
+    history: str = Form(default="[]")
+):
+    import json
+    from services.llm import answer_followup
+
+    try:
+        # Get question — either from audio or text
+        if question_audio and question_audio.filename:
+            audio_bytes = await question_audio.read()
+            stt_result = speech_to_text(audio_bytes, language_code)
+            question_en = stt_result.get("transcript", "")
+            detected_lang = stt_result.get("language_code", language_code)
+        else:
+            question_en = question_text
+            detected_lang = language_code
+
+        if not question_en.strip():
+            raise HTTPException(status_code=400, detail="No question provided.")
+
+        # Translate question to English if needed
+        if not detected_lang.startswith("en"):
+            question_en = translate_text(question_en, detected_lang, "en-IN")
+
+        # Parse context and history
+        context = json.loads(triage_context)
+        conv_history = json.loads(history)
+
+        # Get answer in English
+        answer_en = answer_followup(question_en, context, "triage", conv_history)
+
+        # Translate answer back to patient's language
+        answer_translated = answer_en
+        if not detected_lang.startswith("en"):
+            answer_translated = translate_text(answer_en, "en-IN", detected_lang)
+
+        return {
+            "question": question_text or stt_result.get("transcript", question_en),
+            "answer": answer_translated,
+            "detected_language": detected_lang,
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

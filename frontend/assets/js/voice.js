@@ -158,6 +158,7 @@ function renderTriageResults(data) {
       li.textContent = c;
       condList.appendChild(li);
     });
+
   }
 
   // Recommended action
@@ -213,4 +214,168 @@ function renderTriageResults(data) {
         </svg> Speak`;
     };
   }
+  // Initialize follow-up chat with this triage context
+  initFollowup(triage, detectedLang);
 }
+
+// ─── Follow-up Chat (Voice + Text) ────────────────────────
+
+let followupHistory = [];
+let triageContext = null;
+let followupLang = "en-IN";
+let followupRecorder = null;
+let followupChunks = [];
+
+function initFollowup(context, lang) {
+  triageContext = context;
+  followupLang = lang;
+  followupHistory = [];
+  document.getElementById("chat-history").innerHTML = "";
+}
+
+function addBubble(text, role) {
+  const history = document.getElementById("chat-history");
+  const bubble = document.createElement("div");
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = `<div class="bubble-label">${role === "user" ? "You" : "Swasthya Setu"}</div>${text}`;
+  history.appendChild(bubble);
+  history.scrollTop = history.scrollHeight;
+}
+
+async function sendFollowup(questionText, audioBlob = null) {
+  if (!triageContext) return;
+
+  const status = document.getElementById("followup-status");
+  const sendBtn = document.getElementById("followup-send-btn");
+  status.style.display = "block";
+  status.textContent = "Thinking...";
+  sendBtn.disabled = true;
+
+  const formData = new FormData();
+  if (audioBlob) {
+    formData.append("question_audio", audioBlob, "followup.wav");
+    formData.append("question_text", "");
+  } else {
+    formData.append("question_text", questionText);
+  }
+  formData.append("language_code", followupLang);
+  formData.append("triage_context", JSON.stringify(triageContext));
+  formData.append("history", JSON.stringify(followupHistory));
+
+  try {
+    const res = await fetch(`${API_BASE}/voice/followup`, {
+      method: "POST", body: formData
+    });
+    if (!res.ok) throw new Error("Follow-up failed");
+    const data = await res.json();
+
+    const displayQuestion = data.question || questionText || "🎙️ Voice question";
+    addBubble(displayQuestion, "user");
+
+    // Create assistant bubble first
+    const history = document.getElementById("chat-history");
+    const aiBubble = document.createElement("div");
+    aiBubble.className = "chat-bubble assistant";
+    aiBubble.innerHTML = `<div class="bubble-label">Swasthya Setu</div>${data.answer}`;
+    history.appendChild(aiBubble);
+    history.scrollTop = history.scrollHeight;
+
+    followupHistory.push({ question: displayQuestion, answer: data.answer });
+
+    // TTS — voice output priority
+    status.textContent = "Speaking...";
+    const ttsForm = new FormData();
+    ttsForm.append("text", data.answer);
+    ttsForm.append("language_code", data.detected_language || followupLang);
+    ttsForm.append("speaker", "auto");
+
+    const ttsRes = await fetch(`${API_BASE}/voice/speak`, {
+      method: "POST", body: ttsForm
+    });
+
+    if (ttsRes.ok) {
+      const blob = await ttsRes.blob();
+      const url = URL.createObjectURL(blob);
+
+      // Embed audio player in bubble
+      const audioEl = document.createElement("audio");
+      audioEl.src = url;
+      audioEl.controls = true;
+      audioEl.style.cssText = "width:100%; height:32px; margin-top:6px;";
+      aiBubble.appendChild(audioEl);
+
+      // Auto play
+      const autoAudio = new Audio(url);
+      autoAudio.play();
+    } else {
+      console.error("TTS failed:", await ttsRes.text());
+    }
+
+  } catch (e) {
+    addBubble("Sorry, something went wrong. Please try again.", "assistant");
+    console.error(e);
+  }
+
+  status.style.display = "none";
+  sendBtn.disabled = false;
+  document.getElementById("followup-text-input").value = "";
+}
+
+// ─── Follow-up Voice Input ───────────────────────────────
+
+const followupMicBtn = document.getElementById("followup-mic-btn");
+
+followupMicBtn.addEventListener("click", async () => {
+  // Toggle: if recording, stop it
+  if (followupRecorder && followupRecorder.state === "recording") {
+    stopFollowupRecording();
+    return;
+  }
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    followupChunks = [];
+    followupRecorder = new MediaRecorder(stream);
+
+    followupRecorder.ondataavailable = e => {
+      if (e.data.size > 0) followupChunks.push(e.data);
+    };
+
+    followupRecorder.onstop = () => {
+      const blob = new Blob(followupChunks, { type: "audio/wav" });
+      stream.getTracks().forEach(t => t.stop());
+      // Auto-send voice question
+      sendFollowup("", blob);
+    };
+
+    followupRecorder.start();
+    followupMicBtn.classList.add("recording");
+    document.getElementById("followup-status").style.display = "block";
+    document.getElementById("followup-status").textContent = "● Recording... tap mic again to stop";
+
+  } catch (err) {
+    document.getElementById("followup-status").textContent = "Microphone access denied.";
+  }
+});
+
+function stopFollowupRecording() {
+  if (followupRecorder && followupRecorder.state !== "inactive") {
+    followupRecorder.stop();
+  }
+  followupMicBtn.classList.remove("recording");
+  document.getElementById("followup-status").textContent = "Processing...";
+}
+
+// Wire up text input send
+document.getElementById("followup-send-btn").addEventListener("click", () => {
+  const input = document.getElementById("followup-text-input");
+  const text = input.value.trim();
+  if (text) sendFollowup(text);
+});
+
+document.getElementById("followup-text-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const text = e.target.value.trim();
+    if (text) sendFollowup(text);
+  }
+});

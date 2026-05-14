@@ -41,18 +41,18 @@ def text_to_speech(text: str, language_code: str = "hi-IN", speaker: str = "auto
     # ── Speaker selection per language (warm, rural-friendly voices) ──
     language_speaker_map = {
         "hi-IN": "Ratan",
-        "mr-IN": "Roopa",
+        "mr-IN": "anushka",
         "ta-IN": "Kavitha",
         "te-IN": "Vijay",
-        "kn-IN": "Roopa",
+        "kn-IN": "anushka",
         "gu-IN": "Ratan",
-        "bn-IN": "Roopa",
+        "bn-IN": "anushka",
         "ml-IN": "Kavitha",
         "pa-IN": "Ratan",
-        "en-IN": "Roopa",
+        "en-IN": "anushka",
     }
     if speaker == "auto":
-        speaker = language_speaker_map.get(language_code, "Roopa")
+        speaker = language_speaker_map.get(language_code, "anushka")
 
     # ── Number preprocessing — fix ranges and decimals for natural reading ──
     range_connectors = {
@@ -75,11 +75,47 @@ def text_to_speech(text: str, language_code: str = "hi-IN", speaker: str = "auto
     # Add space after ।  for better pause
     text = re.sub(r'।([^\s])', '। \\1', text)
 
+        # ── Handle [PAUSE] markers for voice-friendly pacing ──
+    text = text.replace(" [PAUSE] ", "।। ")
+    text = text.replace("[PAUSE]", "।। ")
+    
+    # ── Expand common abbreviations for natural TTS reading ──
+    abbreviation_map = {
+        "16एम": "16 वर्षे",
+        "16M": "16 years",
+        "30 दिवस": "तीस दिवस",
+        "45 दिवस": "पंचेचाळीस दिवस",
+        "60 दिवस": "साठ दिवस",
+        "90 दिवस": "नव्वद दिवस",
+        "100": "शंभर",
+        "1000": "हजार",
+        # Age abbreviations
+        "16एम": "16 वर्षे",
+        "16M": "16 years",
+        "18एम": "18 वर्षे",
+        "18M": "18 years",
+        # Dosage abbreviations
+        "मि.ग्रॅ.": "मिलीग्रॅम",
+        "mg": "मिलीग्रॅम",
+        "ग्रॅ.": "ग्रॅम",
+        "ml": "मिलिलिटर",
+        # Time abbreviations  
+        "दि.": "दिवस",
+        "मि.": "मिनिटे",
+        # Medical abbreviations
+        "TDS": "दिवसातून तीन वेळा",
+        "BD": "दिवसातून दोन वेळा",
+        "OD": "दररोज एकदा",
+        "SOS": "गरज लागल्यास",
+
+    }
+
+    for abbr, expansion in abbreviation_map.items():
+        text = text.replace(abbr, expansion)
+
     url = f"{SARVAM_BASE_URL}/text-to-speech"
 
-    # Bulbul v3 supports 2500 chars — split only if still too long
     def split_text(t, limit=490):
-        print(f"SPLIT: text len={len(t)}, limit={limit}")
         if len(t) <= limit:
             return [t]
         chunks = []
