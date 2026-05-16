@@ -1,0 +1,142 @@
+{
+  "timestamp": "20260516_200121",
+  "mode": "full",
+  "components": [
+    {
+      "component": "STT",
+      "total": 3,
+      "passed": 3,
+      "score": 1.0,
+      "results": [
+        {
+          "id": "stt_001",
+          "language": "en-IN",
+          "description": "English diabetes symptoms",
+          "mode": "schema_only",
+          "passed": true
+        },
+        {
+          "id": "stt_002",
+          "language": "hi-IN",
+          "description": "Hindi fever symptoms",
+          "mode": "schema_only",
+          "passed": true
+        },
+        {
+          "id": "stt_003",
+          "language": "mr-IN",
+          "description": "Marathi stomach pain",
+          "mode": "schema_only",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "component": "Translation",
+      "total": 4,
+      "passed": 3,
+      "score": 0.75,
+      "results": [
+        {
+          "id": "trans_001",
+          "source": "Take this medicine twice a day after meals",
+          "reference": "यह दवा दिन में दो बार खाने के बाद लें",
+          "actual": "यह दवा भोजन के बाद दिन में दो बार लीजिए।",
+          "bleu": 35.49,
+          "token_overlap": 0.6667,
+          "passed": true
+        },
+        {
+          "id": "trans_002",
+          "source": "Please consult a doctor immediately",
+          "reference": "कृपया ताबडतोब डॉक्टरांचा सल्ला घ्या",
+          "actual": "कृपया तातडीने डॉक्टरांचा सल्ला घ्या.",
+          "bleu": 32.47,
+          "token_overlap": 0.4286,
+          "passed": true
+        },
+        {
+          "id": "trans_003",
+          "source": "Your blood pressure is high, you need to rest",
+          "reference": "आपका रक्तचाप अधिक है, आपको आराम करने की जरूरत है",
+          "actual": "आपका रक्तचाप अधिक है, आपको आराम करने की आवश्यकता है।",
+          "bleu": 78.61,
+          "token_overlap": 0.6667,
+          "passed": true
+        },
+        {
+          "id": "trans_004",
+          "source": "Drink plenty of water and take rest",
+          "reference": "நிறைய தண்ணீர் குடிங்க, ஓய்வு எடுங்க",
+          "actual": "நிறைய நீர் அருந்துங்கள், ஓய்வெடுங்கள்.",
+          "bleu": 9.65,
+          "token_overlap": 0.125,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "component": "Triage",
+      "total": 6,
+      "passed": 6,
+      "score": 1.0,
+      "results": [
+        {
+          "id": "triage_001",
+          "description": "Mild cold — should be LOW",
+          "expected_level": "LOW",
+          "actual_level": "LOW",
+          "schema_valid": true,
+          "level_match": true,
+          "passed": true
+        },
+        {
+          "id": "triage_002",
+          "description": "Cardiac symptoms — should be HIGH",
+          "expected_level": "HIGH",
+          "actual_level": "HIGH",
+          "schema_valid": true,
+          "level_match": true,
+          "passed": true
+        },
+        {
+          "id": "triage_003",
+          "description": "Moderate fever — should be MEDIUM",
+          "expected_level": "MEDIUM",
+          "actual_level": "MEDIUM",
+          "schema_valid": true,
+          "level_match": true,
+          "passed": true
+        },
+        {
+          "id": "triage_004",
+          "description": "Head trauma — should be HIGH",
+          "expected_level": "HIGH",
+          "actual_level": "HIGH",
+          "schema_valid": true,
+          "level_match": true,
+          "passed": true
+        },
+        {
+          "id": "triage_005",
+          "description": "Minor injury — should be LOW",
+          "expected_level": "LOW",
+          "actual_level": "LOW",
+          "schema_valid": true,
+          "level_match": true,
+          "passed": true
+        },
+        {
+          "id": "triage_006",
+          "description": "Persistent vomiting — should be MEDIUM or HIGH",
+          "expected_level": "MEDIUM",
+          "actual_level": "HIGH",
+          "schema_valid": true,
+          "level_match": true,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "overall_score": 0.92
+}
