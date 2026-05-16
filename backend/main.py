@@ -1,12 +1,21 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
 from routes import voice, document
+from config import validate_config
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    validate_config()
+    print("✅ Config validated — all required API keys present")
+    yield
 
 app = FastAPI(
     title="Swasthya Setu API",
     description="Multilingual Medical Voice Assistant & Document Understanding",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 app.add_middleware(

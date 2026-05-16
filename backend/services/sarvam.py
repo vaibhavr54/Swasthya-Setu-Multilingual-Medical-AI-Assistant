@@ -226,19 +226,22 @@ def extract_text_from_image(image_bytes: bytes, filename: str = "document.jpg") 
         print(f"Mistral OCR failed: {e} — falling back to Tesseract")
         return _tesseract_fallback(image_bytes)
     
-    
+
 def _tesseract_fallback(image_bytes: bytes) -> str:
     import pytesseract
     from PIL import Image
     import io
+    from config import TESSERACT_CMD
 
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
+
     image = Image.open(io.BytesIO(image_bytes))
     text = pytesseract.image_to_string(image, lang="eng+hin", config="--psm 6")
     if not text.strip():
+        text = pytesseract.image_to_string(image, lang="eng", config="--psm 6")
+    if not text.strip():
         raise Exception("Could not extract text. Please upload a clearer image.")
     return text.strip()
-
 
 # ─── Language Detection ────────────────────────────────────────────────────
 
