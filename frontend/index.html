@@ -88,6 +88,67 @@
 
       </div>
 
+            <!-- FAQ Section -->
+      <div class="card" style="margin-bottom:2rem;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem; flex-wrap:wrap; gap:8px;">
+          <div>
+            <h2 style="font-size:16px; font-weight:600; margin-bottom:2px;">Medical FAQ — Ask anything</h2>
+            <p style="font-size:12px; color:var(--text-muted);">Semantic search across 15 medical FAQs · Answered in your language</p>
+          </div>
+          <select id="faq-lang-select" style="padding:7px 12px; border-radius:var(--radius-sm); border:1px solid var(--border-md); font-size:13px; font-family:var(--font); background:var(--bg-card); color:var(--text-primary); outline:none;">
+            <option value="en-IN">English</option>
+            <option value="hi-IN">Hindi — हिंदी</option>
+            <option value="mr-IN">Marathi — मराठी</option>
+            <option value="ta-IN">Tamil — தமிழ்</option>
+            <option value="te-IN">Telugu — తెలుగు</option>
+            <option value="kn-IN">Kannada — ಕನ್ನಡ</option>
+            <option value="gu-IN">Gujarati — ગુજરાતી</option>
+            <option value="bn-IN">Bengali — বাংলা</option>
+          </select>
+        </div>
+
+        <!-- Search input -->
+        <div style="display:flex; gap:8px; margin-bottom:1rem;">
+          <input type="text" id="faq-input" placeholder="e.g. What are symptoms of diabetes? / मधुमेह के लक्षण क्या हैं?" style="flex:1; padding:10px 14px; border-radius:var(--radius-sm); border:1px solid var(--border-md); font-size:14px; font-family:var(--font); outline:none;"/>
+          <button class="btn btn-primary" id="faq-search-btn" style="white-space:nowrap;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Search
+          </button>
+        </div>
+
+        <!-- Quick suggestions -->
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:1rem;" id="faq-suggestions">
+          <span onclick="setFaqQuery('Symptoms of diabetes')" style="font-size:12px; padding:4px 12px; border-radius:99px; background:var(--bg); border:1px solid var(--border); cursor:pointer; color:var(--text-secondary);">Diabetes symptoms</span>
+          <span onclick="setFaqQuery('How to control blood pressure')" style="font-size:12px; padding:4px 12px; border-radius:99px; background:var(--bg); border:1px solid var(--border); cursor:pointer; color:var(--text-secondary);">Blood pressure</span>
+          <span onclick="setFaqQuery('What to do during fever')" style="font-size:12px; padding:4px 12px; border-radius:99px; background:var(--bg); border:1px solid var(--border); cursor:pointer; color:var(--text-secondary);">Fever</span>
+          <span onclick="setFaqQuery('Heart attack warning signs')" style="font-size:12px; padding:4px 12px; border-radius:99px; background:var(--bg); border:1px solid var(--border); cursor:pointer; color:var(--text-secondary);">Heart attack signs</span>
+          <span onclick="setFaqQuery('Baby vaccination schedule')" style="font-size:12px; padding:4px 12px; border-radius:99px; background:var(--bg); border:1px solid var(--border); cursor:pointer; color:var(--text-secondary);">Baby vaccinations</span>
+        </div>
+
+        <!-- Status -->
+        <div id="faq-status" style="font-size:13px; color:var(--accent); align-items:center; gap:8px; margin-bottom:10px; display:none;">
+          <div style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(24,95,165,0.3); border-top-color:var(--accent); animation:spin 0.7s linear infinite;"></div>
+          Searching...
+        </div>
+
+        <!-- Answer -->
+        <div id="faq-result" style="flex-direction:column; gap:10px; display:none;">
+          <div style="background:var(--primary-pale); border-left:3px solid var(--primary); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:600; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Answer</div>
+            <p id="faq-answer" style="font-size:14px; color:var(--text-primary); line-height:1.7; margin:0;"></p>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+            <div id="faq-sources" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+            <button id="faq-speak-btn" class="btn btn-primary" style="padding:6px 14px; font-size:12px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              Listen
+            </button>
+          </div>
+          <audio id="faq-audio" controls style="width:100%; height:32px; display:none;"></audio>
+        </div>
+      </div>
+
+      
       <!-- How it works -->
       <div class="card" style="margin-bottom:2rem;">
         <h2 style="font-size:16px; font-weight:600; margin-bottom:1.25rem; color:var(--text-primary);">How it works</h2>
@@ -127,5 +188,6 @@
     Swasthya Setu — Built with Sarvam AI APIs &nbsp;·&nbsp; For educational purposes only
   </footer>
 
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

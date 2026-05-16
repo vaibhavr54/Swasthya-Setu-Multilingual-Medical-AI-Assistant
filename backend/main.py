@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from routes import voice, document
 from config import validate_config
+from routes import voice, document, faq
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,6 +29,7 @@ app.add_middleware(
 
 app.include_router(voice.router, prefix="/api/voice", tags=["Voice"])
 app.include_router(document.router, prefix="/api/document", tags=["Document"])
+app.include_router(faq.router, prefix="/api/faq", tags=["FAQ"])
 
 @app.get("/health")
 def health_check():

@@ -1,0 +1,107 @@
+[
+  {
+    "id": "faq_001",
+    "question": "What are the symptoms of diabetes?",
+    "answer": "Common symptoms of diabetes include increased thirst, frequent urination, unexplained weight loss, fatigue, blurred vision, and slow-healing wounds. Type 1 diabetes symptoms appear quickly while Type 2 develops gradually.",
+    "category": "diabetes",
+    "tags": ["diabetes", "sugar", "blood glucose", "madhumeh"]
+  },
+  {
+    "id": "faq_002",
+    "question": "How can I control high blood pressure naturally?",
+    "answer": "You can manage high blood pressure by reducing salt intake, exercising regularly (30 mins daily), maintaining healthy weight, avoiding alcohol and smoking, managing stress through yoga or meditation, and eating potassium-rich foods like bananas and spinach.",
+    "category": "hypertension",
+    "tags": ["blood pressure", "hypertension", "BP", "raktadab"]
+  },
+  {
+    "id": "faq_003",
+    "question": "What should I do during a fever?",
+    "answer": "During fever: rest and stay hydrated by drinking plenty of fluids. Take paracetamol to reduce temperature. Use a cool wet cloth on forehead. Wear light clothing. Seek doctor if fever is above 103°F (39.4°C), lasts more than 3 days, or is accompanied by severe headache or rash.",
+    "category": "fever",
+    "tags": ["fever", "bukhar", "tap", "temperature"]
+  },
+  {
+    "id": "faq_004",
+    "question": "What are warning signs of a heart attack?",
+    "answer": "Heart attack warning signs: chest pain or pressure radiating to arm, jaw or back; shortness of breath; cold sweat; nausea; lightheadedness. Women may experience subtle symptoms like fatigue and indigestion. Call emergency services immediately if you suspect a heart attack.",
+    "category": "cardiac",
+    "tags": ["heart attack", "chest pain", "cardiac", "heart", "dil"]
+  },
+  {
+    "id": "faq_005",
+    "question": "How do I know if my child has dengue fever?",
+    "answer": "Dengue symptoms in children: sudden high fever (104°F), severe headache, pain behind eyes, joint and muscle pain, rash appearing 2-5 days after fever, mild bleeding from nose or gums. Seek immediate medical care if child shows these symptoms, especially during monsoon season.",
+    "category": "dengue",
+    "tags": ["dengue", "fever", "mosquito", "child", "rash"]
+  },
+  {
+    "id": "faq_006",
+    "question": "What foods should a diabetic patient avoid?",
+    "answer": "Diabetic patients should avoid: white rice, white bread, sugary drinks, sweets and mithai, fried foods, full-fat dairy, processed foods with hidden sugars. Instead prefer whole grains, vegetables, legumes (dal), and small frequent meals. Consult a dietitian for a personalized meal plan.",
+    "category": "diabetes",
+    "tags": ["diabetes", "diet", "food", "sugar", "khana"]
+  },
+  {
+    "id": "faq_007",
+    "question": "How long should I take antibiotics?",
+    "answer": "Always complete the full course of antibiotics prescribed by your doctor, even if you feel better before finishing. Stopping early can cause antibiotic resistance and the infection may return stronger. Never take leftover antibiotics or share them with others.",
+    "category": "medication",
+    "tags": ["antibiotics", "medicine", "dawa", "infection", "course"]
+  },
+  {
+    "id": "faq_008",
+    "question": "What is the normal blood sugar level?",
+    "answer": "Normal blood sugar: Fasting (before eating) should be 70-100 mg/dL. After meals (2 hours): below 140 mg/dL. HbA1c (3-month average): below 5.7% is normal, 5.7-6.4% is prediabetes, 6.5% and above indicates diabetes. Regular monitoring is important for diabetic patients.",
+    "category": "diabetes",
+    "tags": ["blood sugar", "glucose", "fasting", "HbA1c", "diabetes"]
+  },
+  {
+    "id": "faq_009",
+    "question": "What should I eat during stomach infection or diarrhea?",
+    "answer": "During stomach infection: drink ORS (oral rehydration solution) or coconut water to prevent dehydration. Eat BRAT diet — bananas, rice, applesauce, toast. Avoid dairy, spicy food, and fatty foods. Seek doctor if diarrhea lasts more than 2 days or there is blood in stool.",
+    "category": "gastro",
+    "tags": ["diarrhea", "stomach", "loose motion", "infection", "ORS", "pet dard"]
+  },
+  {
+    "id": "faq_010",
+    "question": "How can I improve my child's immunity?",
+    "answer": "Boost child immunity: ensure all vaccinations are up to date, provide balanced diet rich in fruits and vegetables, ensure adequate sleep (8-10 hours), encourage outdoor play and physical activity, maintain hygiene (handwashing), limit processed food and sugar intake, and breastfeed infants if possible.",
+    "category": "child_health",
+    "tags": ["immunity", "child", "vaccination", "health", "kids"]
+  },
+  {
+    "id": "faq_011",
+    "question": "What is the correct way to take blood pressure medication?",
+    "answer": "Take BP medication at the same time every day, even if you feel fine. Never skip doses or stop without doctor's advice. Monitor BP at home regularly. Avoid NSAIDs like ibuprofen which can raise BP. Report any side effects like dizziness or swelling to your doctor immediately.",
+    "category": "hypertension",
+    "tags": ["blood pressure", "medication", "BP tablet", "hypertension"]
+  },
+  {
+    "id": "faq_012",
+    "question": "When should I go to emergency for chest pain?",
+    "answer": "Go to emergency IMMEDIATELY for chest pain if: pain is crushing or pressure-like, pain spreads to arm, jaw, neck or back, accompanied by shortness of breath, sweating, nausea or dizziness, pain started during physical activity, or you have history of heart disease. Do not drive yourself — call 108.",
+    "category": "cardiac",
+    "tags": ["chest pain", "emergency", "heart attack", "108", "ambulance"]
+  },
+  {
+    "id": "faq_013",
+    "question": "What are the side effects of paracetamol?",
+    "answer": "Paracetamol (Crocin, Dolo) is generally safe at recommended doses. Rare side effects include skin rash, liver damage with overdose, nausea. Never exceed 4g (8 tablets of 500mg) per day. Avoid alcohol while taking paracetamol. Consult doctor before use if you have liver or kidney disease.",
+    "category": "medication",
+    "tags": ["paracetamol", "crocin", "dolo", "fever", "side effects", "dawa"]
+  },
+  {
+    "id": "faq_014",
+    "question": "How do I manage asthma attacks?",
+    "answer": "During asthma attack: sit upright and stay calm, use rescue inhaler (Salbutamol) immediately, take 1 puff every 30-60 seconds up to 10 puffs, call 108 if no improvement in 15 minutes. Avoid triggers like dust, smoke, pets. Take controller medication daily as prescribed even when feeling well.",
+    "category": "respiratory",
+    "tags": ["asthma", "inhaler", "breathing", "dama", "wheeze"]
+  },
+  {
+    "id": "faq_015",
+    "question": "What vaccinations does my baby need in the first year?",
+    "answer": "First year vaccinations in India: At birth — BCG, OPV, Hepatitis B. At 6 weeks — DPT, OPV, IPV, Hepatitis B, Hib, Rotavirus. At 10 weeks — DPT, OPV, Hib, Rotavirus. At 14 weeks — DPT, IPV, Hib, Rotavirus. At 6 months — OPV, Hepatitis B. At 9 months — MMR, Typhoid. Follow your local immunization schedule.",
+    "category": "child_health",
+    "tags": ["vaccination", "baby", "immunization", "infant", "BCG", "DPT"]
+  }
+]
