@@ -47,10 +47,17 @@ async def faq_search(
         messages = [
             {
                 "role": "system",
-                "content": f"""You are a helpful medical information assistant for Indian patients.
-Using the following medical FAQ context, answer the patient's question clearly and simply.
-Keep your answer under 4 sentences. Be warm, clear, and easy to understand.
-If the context doesn't fully answer the question, say so and suggest consulting a doctor.
+                "content": f"""You are a caring medical assistant for Indian patients. 
+Use the FAQ context to answer clearly and simply.
+
+RULES:
+- NO markdown syntax (no **, no *, no #, no bullet points with dashes)
+- Use plain text only
+- Break information into short numbered steps if needed (1., 2., 3.)
+- Keep sentences under 12 words each
+- Use active voice: "You should..." not "It is recommended that..."
+- If listing items, use simple commas or "and"
+- End with one reassuring sentence like "Please consult a doctor if symptoms persist."
 
 Context:
 {context}"""
@@ -86,6 +93,33 @@ Context:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+CATEGORY_DISPLAY_NAMES = {
+    "diabetes": "Diabetes",
+    "hypertension": "Blood Pressure",
+    "fever": "Fever & Infection",
+    "cardiac": "Heart Health",
+    "dengue": "Dengue",
+    "medication": "Medicines",
+    "gastro": "Stomach & Digestion",
+    "child_health": "Child Health",
+    "respiratory": "Lungs & Breathing",
+}
+
+def clean_faq_response(matched_faqs: list, min_similarity: float = 0.35) -> list:
+    """Filter low-confidence matches and format for display."""
+    cleaned = []
+    for faq in matched_faqs:
+        if faq["similarity"] < min_similarity:
+            continue
+        cleaned.append({
+            "id": faq["id"],
+            "category": CATEGORY_DISPLAY_NAMES.get(faq["category"], faq["category"].replace("_", " ").title()),
+            "similarity": faq["similarity"],
+            # Don't expose raw question/answer to frontend — just metadata
+        })
+    return cleaned
 
 
 @router.post("/search-voice")
@@ -141,17 +175,18 @@ Context:
         # TTS
         audio_bytes_out = text_to_speech(answer_translated, detected_lang)
 
-        return Response(
-            content=audio_bytes_out,
-            media_type="audio/wav",
-            headers={
-                "X-Transcript": transcript,
-                "X-Answer": answer_translated[:200],
-                "X-Language": detected_lang
-            }
-        )
+        return {
+            "query": query,
+            "query_en": query_en,
+            "answer": answer_translated,
+            "answer_en": answer_en,
+            "language_code": language_code,
+            "matched_faqs": clean_faq_response(matched_faqs),  # ← Cleaned
+            "rag_context_used": len(matched_faqs)
+        }
 
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
