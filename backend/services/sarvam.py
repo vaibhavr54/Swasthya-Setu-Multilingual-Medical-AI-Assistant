@@ -11,107 +11,42 @@ headers = {
 
 def speech_to_text(audio_bytes: bytes, language_code: str = "unknown") -> dict:
     url = f"{SARVAM_BASE_URL}/speech-to-text"
-    files = {
-        "file": ("audio.wav", audio_bytes, "audio/wav")
-    }
-    data = {
-        "model": "saaras:v3",
-        "mode": "transcribe",
-    }
+    files = {"file": ("audio.wav", audio_bytes, "audio/wav")}
+    data = {"model": "saaras:v3", "mode": "transcribe"}
     if language_code and language_code != "unknown":
         data["language_code"] = language_code
 
     response = requests.post(url, headers=headers, files=files, data=data)
-
     if not response.ok:
         raise Exception(f"STT Error {response.status_code}: {response.text}")
-
     text = response.text.strip()
     if not text:
         raise Exception("STT returned empty response")
-
     import json
     return json.loads(text)
+
 
 # ─── Text to Speech (Bulbul v2) ────────────────────────────────────────────
 
 def text_to_speech(text: str, language_code: str = "hi-IN", speaker: str = "auto") -> bytes:
     import re
 
-    # ── Speaker selection per language (warm, rural-friendly voices) ──
     language_speaker_map = {
-        "hi-IN": "Ratan",
-        "mr-IN": "anushka",
-        "ta-IN": "Kavitha",
-        "te-IN": "Vijay",
-        "kn-IN": "anushka",
-        "gu-IN": "Ratan",
-        "bn-IN": "anushka",
-        "ml-IN": "Kavitha",
-        "pa-IN": "Ratan",
-        "en-IN": "anushka",
+        "hi-IN": "Ratan", "mr-IN": "anushka", "ta-IN": "Kavitha",
+        "te-IN": "Vijay", "kn-IN": "anushka", "gu-IN": "Ratan",
+        "bn-IN": "anushka", "ml-IN": "Kavitha", "pa-IN": "Ratan", "en-IN": "anushka",
     }
     if speaker == "auto":
         speaker = language_speaker_map.get(language_code, "anushka")
 
-    # ── Number preprocessing — fix ranges and decimals for natural reading ──
     range_connectors = {
-        "hi-IN": "से",
-        "mr-IN": "ते",
-        "ta-IN": "முதல்",
-        "te-IN": "నుండి",
-        "kn-IN": "ರಿಂದ",
-        "gu-IN": "થી",
-        "bn-IN": "থেকে",
-        "ml-IN": "മുതൽ",
-        "pa-IN": "ਤੋਂ",
-        "en-IN": "to",
+        "hi-IN": "से", "mr-IN": "ते", "ta-IN": "முதல்", "te-IN": "నుండి",
+        "kn-IN": "ರಿಂದ", "gu-IN": "થી", "bn-IN": "থেকে",
+        "ml-IN": "മുതൽ", "pa-IN": "ਤੋਂ", "en-IN": "to",
     }
     connector = range_connectors.get(language_code, "to")
-
-    # Replace ranges like 25-30 → "25 ते 30"
     text = re.sub(r'(\d+)\s*-\s*(\d+)', rf'\1 {connector} \2', text)
-    # Replace decimals like 98.6 → "98.6" (keep as is, preprocessing handles it)
-    # Add space after ।  for better pause
     text = re.sub(r'।([^\s])', '। \\1', text)
-
-        # ── Handle [PAUSE] markers for voice-friendly pacing ──
-    text = text.replace(" [PAUSE] ", "।। ")
-    text = text.replace("[PAUSE]", "।। ")
-    
-    # ── Expand common abbreviations for natural TTS reading ──
-    abbreviation_map = {
-        "16एम": "16 वर्षे",
-        "16M": "16 years",
-        "30 दिवस": "तीस दिवस",
-        "45 दिवस": "पंचेचाळीस दिवस",
-        "60 दिवस": "साठ दिवस",
-        "90 दिवस": "नव्वद दिवस",
-        "100": "शंभर",
-        "1000": "हजार",
-        # Age abbreviations
-        "16एम": "16 वर्षे",
-        "16M": "16 years",
-        "18एम": "18 वर्षे",
-        "18M": "18 years",
-        # Dosage abbreviations
-        "मि.ग्रॅ.": "मिलीग्रॅम",
-        "mg": "मिलीग्रॅम",
-        "ग्रॅ.": "ग्रॅम",
-        "ml": "मिलिलिटर",
-        # Time abbreviations  
-        "दि.": "दिवस",
-        "मि.": "मिनिटे",
-        # Medical abbreviations
-        "TDS": "दिवसातून तीन वेळा",
-        "BD": "दिवसातून दोन वेळा",
-        "OD": "दररोज एकदा",
-        "SOS": "गरज लागल्यास",
-
-    }
-
-    for abbr, expansion in abbreviation_map.items():
-        text = text.replace(abbr, expansion)
 
     url = f"{SARVAM_BASE_URL}/text-to-speech"
 
@@ -172,17 +107,13 @@ def text_to_speech(text: str, language_code: str = "hi-IN", speaker: str = "auto
             "speaker": speaker,
             "model": "bulbul:v2",
             "enable_preprocessing": True,
-            "pace": 0.9,        # slightly slower — easier for rural/elderly users
+            "pace": 0.9,
         }
         response = requests.post(
-            url,
-            headers={**headers, "Content-Type": "application/json"},
-            json=payload
+            url, headers={**headers, "Content-Type": "application/json"}, json=payload
         )
         if not response.ok:
-            print("TTS FAIL:", response.status_code, response.text)
             raise Exception(f"TTS Error {response.status_code}: {response.text}")
-
         wav_bytes = base64.b64decode(response.json()["audios"][0])
         if wav_params is None:
             wav_params = get_wav_params(wav_bytes)
@@ -190,7 +121,6 @@ def text_to_speech(text: str, language_code: str = "hi-IN", speaker: str = "auto
 
     if wav_params is None:
         raise Exception("TTS returned no audio")
-
     channels, sample_rate, bit_depth = wav_params
     return build_wav(all_pcm, channels, sample_rate, bit_depth)
 
@@ -207,34 +137,106 @@ def translate_text(text: str, source_language: str = "en-IN", target_language: s
         "enable_preprocessing": True,
     }
     response = requests.post(url, headers={**headers, "Content-Type": "application/json"}, json=payload)
-
     if not response.ok:
         raise Exception(f"Translation Error {response.status_code}: {response.text}")
-
     return response.json()["translated_text"]
 
 
-# ─── OCR via Tesseract (local, free) ───────────────────────────────────────
-
 def extract_text_from_image(image_bytes: bytes, filename: str = "document.jpg") -> str:
+    import base64 as b64
+    from config import MISTRAL_API_KEY
+
+    # Determine mime type
+    mime_type = "image/jpeg"
+    if filename.lower().endswith(".png"):
+        mime_type = "image/png"
+    elif filename.lower().endswith(".pdf"):
+        mime_type = "application/pdf"
+
+    image_b64 = b64.b64encode(image_bytes).decode("utf-8")
+
+    try:
+        if mime_type == "application/pdf":
+            # PDF — upload as file first
+            import requests as req
+            upload_response = req.post(
+                "https://api.mistral.ai/v1/files",
+                headers={"Authorization": f"Bearer {MISTRAL_API_KEY}"},
+                files={"file": (filename, image_bytes, "application/pdf")},
+                data={"purpose": "ocr"}
+            )
+            if not upload_response.ok:
+                raise Exception(f"Upload failed: {upload_response.text}")
+
+            file_id = upload_response.json()["id"]
+
+            # Get signed URL
+            url_response = req.get(
+                f"https://api.mistral.ai/v1/files/{file_id}/url",
+                headers={"Authorization": f"Bearer {MISTRAL_API_KEY}"}
+            )
+            signed_url = url_response.json()["url"]
+
+            # OCR via URL
+            ocr_response = req.post(
+                "https://api.mistral.ai/v1/ocr",
+                headers={
+                    "Authorization": f"Bearer {MISTRAL_API_KEY}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": "mistral-ocr-latest",
+                    "document": {"type": "document_url", "document_url": signed_url}
+                }
+            )
+        else:
+            # Image — send as base64
+            import requests as req
+            ocr_response = req.post(
+                "https://api.mistral.ai/v1/ocr",
+                headers={
+                    "Authorization": f"Bearer {MISTRAL_API_KEY}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": "mistral-ocr-latest",
+                    "document": {
+                        "type": "image_url",
+                        "image_url": f"data:{mime_type};base64,{image_b64}"
+                    }
+                }
+            )
+
+        print("Mistral OCR status:", ocr_response.status_code)
+
+        if not ocr_response.ok:
+            print("Mistral OCR error:", ocr_response.text[:200])
+            raise Exception(f"Mistral OCR failed: {ocr_response.status_code}")
+
+        pages = ocr_response.json().get("pages", [])
+        text = "\n\n".join(page.get("markdown", "") for page in pages).strip()
+
+        if not text:
+            raise Exception("No text extracted")
+
+        print("Mistral OCR success, chars:", len(text))
+        return text
+
+    except Exception as e:
+        print(f"Mistral OCR failed: {e} — falling back to Tesseract")
+        return _tesseract_fallback(image_bytes)
+    
+    
+def _tesseract_fallback(image_bytes: bytes) -> str:
     import pytesseract
     from PIL import Image
     import io
 
     pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
     image = Image.open(io.BytesIO(image_bytes))
-
-    # Try multiple languages including Indic scripts
-    text = pytesseract.image_to_string(
-        image,
-        lang="eng+hin",
-        config="--psm 6"
-    )
-
+    text = pytesseract.image_to_string(image, lang="eng+hin", config="--psm 6")
     if not text.strip():
-        raise Exception("Could not extract text from image. Please upload a clearer image.")
-
+        raise Exception("Could not extract text. Please upload a clearer image.")
     return text.strip()
 
 
@@ -244,8 +246,6 @@ def detect_language(text: str) -> str:
     url = f"{SARVAM_BASE_URL}/text-language-identification"
     payload = {"input": text}
     response = requests.post(url, headers={**headers, "Content-Type": "application/json"}, json=payload)
-
     if not response.ok:
         return "en-IN"
-
     return response.json().get("language_code", "en-IN")
