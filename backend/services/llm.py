@@ -95,7 +95,7 @@ Respond ONLY in this exact JSON format:
     }
   ],
   "instructions": ["any special instructions in short sentences"],
-  "summary": "A warm, conversational summary as if a caring nurse is explaining to the patient directly. Use 'you' (तुम्ही/आपण). Start with a greeting using the patient's first name if available. Use [PAUSE] between sections. Format medications with simple numbering (पहिले, दुसरे, तिसरे). Each medication: name first, then what it's for in 1 sentence, then how to take it in 1-2 short sentences, then 1 side-effect warning if relevant. Use active voice. End with 2-3 bullet points of key reminders and a warm closing wish for recovery. Never mention missing information (doctor name, incomplete details) — simply omit it. Never use formal words like 'प्रथम' — use 'पहिले'. Never use abbreviations like 'मि.ग्रॅ.' — spell out 'मिलीग्रॅम'. Keep sentences under 10 words each."
+  "summary": "A warm, conversational summary as if a caring nurse is explaining to the patient directly. Use 'you' (तुम्ही/आपण). Start with a greeting using the patient's first name if available. Format medications with simple numbering (पहिले, दुसरे, तिसरे). Each medication: name first, then what it's for in 1 sentence, then how to take it in 1-2 short sentences, then 1 side-effect warning if relevant. Use active voice. End with 2-3 bullet points of key reminders and a warm closing wish for recovery. Never mention missing information (doctor name, incomplete details) — simply omit it. Never use formal words like 'प्रथम' — use 'पहिले'. Never use abbreviations like 'मि.ग्रॅ.' — spell out 'मिलीग्रॅम'. Keep sentences under 10 words each."
 }
 
 RULES FOR SUMMARY:

@@ -25,7 +25,7 @@ async def analyze_document(
         explanation = explain_prescription(ocr_text)
 
         # Step 3: Translate summary and instructions if not English
-        if not target_language.startswith("en"):
+        if not target_language.startswith("en-IN"):
             explanation["summary"] = translate_text(explanation["summary"], "en-IN", target_language)
             explanation["instructions"] = [
                 translate_text(inst, "en-IN", target_language)
@@ -52,7 +52,7 @@ async def analyze_document(
 @router.post("/speak-summary")
 async def speak_summary(
     text: str = Form(...),
-    language_code: str = Form(default="hi-IN"),
+    language_code: str = Form(default="en-IN"),
     speaker: str = Form(default="auto")
 ):
     try:
