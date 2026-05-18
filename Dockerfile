@@ -15,10 +15,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-download sentence transformer model at build time
-# so it's baked into the image — no runtime download needed
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')"
-
 COPY . .
 
 ENV TESSERACT_CMD=/usr/bin/tesseract
