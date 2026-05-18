@@ -65,7 +65,7 @@ jobs:
       - name: Test Docker health
         run: |
           docker run -d \
-            -p 8000:8000 \
+            -p 7860:7860 \
             -e SARVAM_API_KEY=test_key \
             -e MISTRAL_API_KEY=test_key \
             --name setu-test \
@@ -73,11 +73,11 @@ jobs:
           echo "Waiting for container to start..."
           for i in {1..12}; do
             sleep 5
-            if curl -f http://localhost:8000/health 2>/dev/null; then
+            if curl -f http://localhost:7860/health 2>/dev/null; then
               echo "Container is healthy!"
               break
             fi
             echo "Attempt $i/12 — waiting..."
           done
-          curl -f http://localhost:8000/health || (docker logs setu-test && exit 1)
+          curl -f http://localhost:7860/health || (docker logs setu-test && exit 1)
           docker stop setu-test
