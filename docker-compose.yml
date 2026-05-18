@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  swasthya-setu:
+    build: .
+    container_name: swasthya-setu
+    ports:
+      - "8000:8000"
+    environment:
+      - SARVAM_API_KEY=${SARVAM_API_KEY}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - SARVAM_BASE_URL=${SARVAM_BASE_URL:-https://api.sarvam.ai}
+      - TESSERACT_CMD=/usr/bin/tesseract
+    volumes:
+      # Persist ChromaDB vector store between restarts
+      - chroma_data:/app/backend/data/chroma_db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  chroma_data:
