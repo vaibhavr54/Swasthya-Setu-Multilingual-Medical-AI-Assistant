@@ -1,9 +1,6 @@
 import requests
 import json
-import sys
-import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from config import SARVAM_API_KEY, SARVAM_BASE_URL
 
