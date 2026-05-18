@@ -19,7 +19,7 @@ COPY . .
 
 ENV TESSERACT_CMD=/usr/bin/tesseract
 
-EXPOSE 8000
+EXPOSE 7860
 
 WORKDIR /app/backend
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
