@@ -41,7 +41,7 @@ class MistralEmbeddingFunction(EmbeddingFunction):
         }
         payload = {
             "model": self.model,
-            "inputs": input,          # list of strings
+            "input": input,          # list of strings
             "encoding_format": "float"
         }
         response = requests.post(self.url, headers=headers, json=payload, timeout=30)

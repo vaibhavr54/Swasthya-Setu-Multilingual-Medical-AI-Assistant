@@ -20,7 +20,7 @@ def chat_completion(messages: list, reasoning: str = "low") -> str:
     payload = {
         "model": "sarvam-m",
         "messages": messages,
-        "max_tokens": 2000,
+        "max_tokens": 3000,
         "reasoning_effort": reasoning
     }
     response = requests.post(url, headers=headers, json=payload)
