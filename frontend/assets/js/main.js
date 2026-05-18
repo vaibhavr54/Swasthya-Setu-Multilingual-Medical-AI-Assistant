@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = window.location.origin + "/api";
 
 const LANGUAGE_NAMES = {
   "hi-IN": "Hindi", "mr-IN": "Marathi", "ta-IN": "Tamil",
@@ -10,7 +10,7 @@ const LANGUAGE_NAMES = {
 function showStatus(text) {
   const bar = document.getElementById("status-bar");
   const txt = document.getElementById("status-text");
-  if (bar && txt) { txt.textContent = text; bar.classList.remove("hidden"); }
+  if (bar && txt) { txt.textContent = text; bar.classList.remove("hidden");}
 }
 
 function hideStatus() {
