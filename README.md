@@ -1,9 +1,10 @@
 # 🏥 Swasthya Setu — स्वास्थ्य सेतु
 
-> **Healthcare in your language, for every Indian.**
 ![CI](https://github.com/vaibhavr54/Swasthya-Setu-Multilingual-Medical-AI-Assistant/actions/workflows/ci.yml/badge.svg)
 
-> A multilingual AI-powered health bridge that lets patients speak their symptoms in Hindi, Marathi, Tamil, Telugu, Kannada, Gujarati, Bengali, Malayalam, Punjabi, or English — and receive clear, spoken medical guidance without needing to read or write English.
+**Healthcare in your language, for every Indian.**
+
+A multilingual AI-powered health bridge that lets patients speak their symptoms in Hindi, Marathi, Tamil, Telugu, Kannada, Gujarati, Bengali, Malayalam, Punjabi, or English — and receive clear, spoken medical guidance without needing to read or write English.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Sarvam%20AI-Powered-0f6e56?style=for-the-badge&logo=openai&logoColor=white" alt="Sarvam AI Powered">
@@ -23,9 +24,10 @@
   <a href="#deployment">Deployment</a>
 </p>
 
+
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#-overview)
 - [Features](#-features)
@@ -48,10 +50,10 @@
 - [Contributing](#-contributing)
 - [License](#-license)
 - [Disclaimer](#-disclaimer)
-
+  
 ---
 
-## 🎯 Overview
+## Overview
 
 **Swasthya Setu** (स्वास्थ्य सेतु, meaning "Health Bridge") is a production-ready, voice-first healthcare triage and document understanding platform built for India's linguistic diversity. It addresses a critical gap: **over 90% of India's population is not comfortable with English**, yet most digital health tools are English-only.
 
@@ -72,7 +74,7 @@ Swasthya Setu provides **three core capabilities** accessible entirely through v
 
 ---
 
-## ✨ Features
+## Features
 
 ### 🎙️ Voice Symptom Assistant
 - **Speech-to-Text (STT)**: Sarvam Saaras v3 — supports 10+ Indian languages with auto-detection
@@ -108,109 +110,25 @@ Swasthya Setu provides **three core capabilities** accessible entirely through v
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                              FRONTEND                                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐                    │
-│  │  index.html  │  │  voice.html  │  │document.html │                    │
-│  │   (Home)     │  │(Symptom AI)  │  │(Doc Parser)  │                    │
-│  └──────────────┘  └──────────────┘  └──────────────┘                    │
-│         │                 │                  │                            │
-│         └─────────────────┴──────────────────┘                            │
-│                           │                                             │
-│                    Vanilla JS + CSS                                     │
-│              (No build step, pure HTML/CSS/JS)                          │
-└───────────────────────────┬─────────────────────────────────────────────┘
-                            │ HTTP/REST
-┌───────────────────────────▼─────────────────────────────────────────────┐
-│                              BACKEND                                     │
-│                         FastAPI (Python)                                 │
-│  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │                         API Routes                               │    │
-│  │  /api/voice/*    /api/document/*    /api/faq/*                 │    │
-│  └─────────────────────────────────────────────────────────────────┘    │
-│                            │                                            │
-│  ┌─────────────────────────┼─────────────────────────────────────────┐  │
-│  │                         ▼                                          │  │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐ │  │
-│  │  │   Services   │  │   Services   │  │        Services          │ │  │
-│  │  │   (Voice)    │  │  (Document)  │  │        (FAQ)             │ │  │
-│  │  │              │  │              │  │                          │ │  │
-│  │  │ • STT        │  │ • OCR        │  │ • Semantic Search        │ │  │
-│  │  │ • Triage LLM │  │ • Prescription│ │ • RAG Answer Gen         │ │  │
-│  │  │ • TTS        │  │   Parser     │  │ • Vector Store           │ │  │
-│  │  │ • Translate  │  │ • Translate  │  │                          │ │  │
-│  │  │ • Follow-up  │  │ • Follow-up  │  │                          │ │  │
-│  │  └──────────────┘  └──────────────┘  └──────────────────────────┘ │  │
-│  └───────────────────────────────────────────────────────────────────┘  │
-│                            │                                            │
-│  ┌─────────────────────────▼─────────────────────────────────────────┐  │
-│  │                     External APIs                                  │  │
-│  │  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │  │
-│  │  │ Sarvam AI  │  │ Sarvam AI  │  │ Sarvam AI  │  │ Mistral AI │ │  │
-│  │  │  Saaras v3 │  │  Bulbul v2 │  │  Mayura v1 │  │  OCR +     │ │  │
-│  │  │  (STT)     │  │  (TTS)     │  │(Translate) │  │  Embed     │ │  │
-│  │  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │  │
-│  │  ┌────────────┐  ┌────────────┐  ┌────────────┐                  │  │
-│  │  │ Sarvam AI  │  │ Sarvam AI  │  │ ChromaDB   │                  │  │
-│  │  │  sarvam-m  │  │ Language   │  │ (Vector    │                  │  │
-│  │  │  (LLM)     │  │ Detection  │  │  Store)    │                  │  │
-│  │  └────────────┘  └────────────┘  └────────────┘                  │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+<img width="1402" height="1122" alt="image" src="https://github.com/user-attachments/assets/bf867312-f5f7-407a-82df-5f6f9e3394ae" />
+
 
 ### Data Flow: Voice Triage
-```
-User speaks in Hindi ──► Sarvam STT ──► Hindi transcript
-                                              │
-                                              ▼
-                                   Sarvam Mayura Translate
-                                              │
-                                              ▼
-                                   English text ──► Sarvam-m LLM
-                                              │
-                                              ▼
-                                   Triage JSON (English)
-                                              │
-                                              ▼
-                                   Sarvam Mayura Translate
-                                              │
-                                              ▼
-                                   Hindi response ──► Sarvam TTS
-                                              │
-                                              ▼
-                                   Spoken audio response
-```
+
+<img width="1774" height="887" alt="image" src="https://github.com/user-attachments/assets/d0287d0c-5224-492a-92b5-e528fd32e34c" />
+
 
 ### Data Flow: Document Analysis
-```
-Upload prescription image ──► Mistral OCR ──► Raw text
-                                                  │
-                                                  ▼
-                                   Language Detection
-                                                  │
-                                                  ▼
-                                   Translate to English (if needed)
-                                                  │
-                                                  ▼
-                                   Sarvam-m LLM (Prescription Parser)
-                                                  │
-                                                  ▼
-                                   Structured JSON (English)
-                                                  │
-                                                  ▼
-                                   Translate to target language
-                                                  │
-                                                  ▼
-                                   Plain-language explanation + TTS
-```
+
+<img width="1693" height="929" alt="image" src="https://github.com/user-attachments/assets/4aea72dc-2c23-4fcf-a4a2-756ed80af940" />
+
+
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 | Component | Technology | Purpose |
@@ -245,7 +163,7 @@ Upload prescription image ──► Mistral OCR ──► Raw text
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 swasthya-setu/
@@ -298,7 +216,7 @@ swasthya-setu/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -311,8 +229,8 @@ swasthya-setu/
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/swasthya-setu.git
-cd swasthya-setu
+git clone https://github.com/vaibhavr54/Swasthya-Setu-Multilingual-Medical-AI-Assistant.git
+cd Swasthya-Setu-Multilingual-Medical-AI-Assistant
 ```
 
 2. **Create a `.env` file** in the project root:
@@ -409,7 +327,7 @@ The Docker setup includes:
 
 ---
 
-## 📚 API Reference
+## API Reference
 
 ### Voice Endpoints
 
@@ -600,7 +518,7 @@ FAQ store health check and count.
 
 ---
 
-## 📊 Evaluation Framework
+## Evaluation Framework
 
 Swasthya Setu includes a comprehensive evaluation framework to measure AI component quality across three dimensions:
 
@@ -650,7 +568,7 @@ python eval_runner.py --mode full --save
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Test Suite
 
@@ -687,7 +605,7 @@ pytest --cov=. --cov-report=html
 
 ---
 
-## 🚢 Deployment
+## Deployment
 
 ### Docker (Recommended)
 
@@ -723,7 +641,7 @@ Docker healthcheck is configured to restart the container if unhealthy.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please follow these guidelines:
 
@@ -744,13 +662,13 @@ We welcome contributions! Please follow these guidelines:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 **Swasthya Setu is a triage and health information tool only. It does NOT:**
 - ❌ Diagnose medical conditions
@@ -769,7 +687,7 @@ This tool is designed to:
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Sarvam AI** for providing world-class Indian language AI APIs
 - **Mistral AI** for OCR and embedding capabilities
