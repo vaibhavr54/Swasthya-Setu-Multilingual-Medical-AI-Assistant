@@ -1,3 +1,13 @@
+---
+title: Swasthya Setu
+emoji: 🏥
+colorFrom: green
+colorTo: teal
+sdk: docker
+pinned: false
+app_port: 7860
+---
+
 # Swasthya-Setu-Multilingual-Medical-AI-Assistant
 ![CI](https://github.com/vaibhavr54/Swasthya-Setu-Multilingual-Medical-AI-Assistant/actions/workflows/ci.yml/badge.svg)
 
