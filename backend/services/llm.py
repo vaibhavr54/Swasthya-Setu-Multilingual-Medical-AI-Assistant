@@ -1,11 +1,9 @@
 import requests
 import json
-import pytest
-import json
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from config import SARVAM_API_KEY, SARVAM_BASE_URL
 
@@ -30,7 +28,6 @@ def chat_completion(messages: list, reasoning: str = "low") -> str:
 
     content = response.json()["choices"][0]["message"]["content"]
 
-    # Strip <think>...</think> block if present
     if "<think>" in content and "</think>" in content:
         content = content.split("</think>")[-1].strip()
 
@@ -50,7 +47,7 @@ def analyze_symptoms(symptom_text: str) -> dict:
   "possible_conditions": ["condition1", "condition2"],
   "recommended_action": "what the patient should do next",
   "follow_up_questions": ["question1", "question2"],
-  "summary": "8 to 10 sentence plain language summary of the situation"
+  "summary": "8 to 10 sentence plain language summary of the situation written for a patient with no medical education"
 }
 Do not diagnose. Do not prescribe. Only triage and guide.
 IMPORTANT: Respond only with the JSON object, no extra text."""
@@ -60,10 +57,8 @@ IMPORTANT: Respond only with the JSON object, no extra text."""
             "content": f"Patient symptoms: {symptom_text}"
         }
     ]
-    import json
-    # Clean and parse JSON
+
     raw = chat_completion(messages, reasoning="medium").strip()
-    # Remove markdown code fences if present
     if "```" in raw:
         raw = raw.split("```")[1]
         if raw.startswith("json"):
@@ -78,97 +73,37 @@ def explain_prescription(ocr_text: str) -> dict:
     messages = [
         {
             "role": "system",
-            "content": """You are a medical document assistant for Indian rural patients. Given raw OCR text from a prescription, create a VOICE-FRIENDLY explanation.
+            "content": """You are a medical document parser. Extract information from prescription text and return ONLY a JSON object.
+CRITICAL RULES:
+1. ALL text values in the JSON must be in ENGLISH only
+2. Never use Marathi, Hindi or any other language in your response
+3. Respond with ONLY the JSON object, no other text
 
-Respond ONLY in this exact JSON format:
+Return this exact JSON structure:
 {
-  "patient_name": "name if found, else null",
-  "doctor_name": "name if found, else null",
-  "date": "date if found, else null",
-  "medications": [
-    {
-      "name": "medicine name in simple terms",
-      "purpose": "what this medicine does in 1 simple sentence",
-      "dosage": "dose and timing",
-      "duration": "how many days",
-      "side_effects": "common side effects in simple words"
-    }
-  ],
-  "instructions": ["any special instructions in short sentences"],
-  "summary": "A warm, conversational summary as if a caring nurse is explaining to the patient directly. Use 'you' (तुम्ही/आपण). Start with a greeting using the patient's first name if available. Format medications with simple numbering (पहिले, दुसरे, तिसरे). Each medication: name first, then what it's for in 1 sentence, then how to take it in 1-2 short sentences, then 1 side-effect warning if relevant. Use active voice. End with 2-3 bullet points of key reminders and a warm closing wish for recovery. Never mention missing information (doctor name, incomplete details) — simply omit it. Never use formal words like 'प्रथम' — use 'पहिले'. Never use abbreviations like 'मि.ग्रॅ.' — spell out 'मिलीग्रॅम'. Keep sentences under 10 words each."
-}
-
-RULES FOR SUMMARY:
-- Start with greeting and patient identification
-- Use [PAUSE] between every 2-3 sentences for TTS pacing
-- Each medication gets its own short paragraph with numbering
-- Side effects should include a clear "what to do if this happens" instruction
-- End with an encouraging, actionable closing
-- Never say "doctor name not found" — simply omit if unavailable
-- Never include system notes like "explanations needed"
-- Use warm, reassuring tone suitable for elderly patients
-
-IMPORTANT: Respond only with the JSON object, no extra text."""
+  "patient_name": null,
+  "doctor_name": null,
+  "date": null,
+  "medications": [{"name": "english name", "purpose": "english purpose", "dosage": "english dosage", "duration": "english duration", "side_effects": "english side effects"}],
+  "instructions": ["english instruction"],
+  "summary": "5 to 8 simple sentences explaining: what medicines are given and why each one is needed, when and how to take each medicine, how many days to continue, any important warnings or side effects to watch for, and what the patient should do if they feel unwell — written in very simple English as if explaining to someone with no medical education"
+}"""
         },
         {
             "role": "user",
-            "content": f"Prescription OCR text:\n{ocr_text}"
+            "content": "Prescription: Paracetamol 500mg twice daily for 5 days, Cetirizine 10mg once daily at night for 3 days. Patient: Ramesh. Doctor: Dr. Sharma. Instructions: Take after food."
+        },
+        {
+            "role": "assistant",
+            "content": '{"patient_name": "Ramesh", "doctor_name": "Dr. Sharma", "date": null, "medications": [{"name": "Paracetamol 500mg", "purpose": "To reduce fever and relieve body pain", "dosage": "500mg twice daily — once in morning, once at night", "duration": "5 days", "side_effects": "Generally safe, but avoid taking more than prescribed. Do not take on empty stomach."}, {"name": "Cetirizine 10mg", "purpose": "To reduce allergy symptoms like runny nose, sneezing and itching", "dosage": "10mg once daily at night before sleeping", "duration": "3 days", "side_effects": "May cause drowsiness. Avoid driving after taking this medicine."}], "instructions": ["Take all medicines after food"], "summary": "Doctor Sharma has given Ramesh two medicines. The first medicine Paracetamol is for fever and body pain — take 1 tablet in the morning and 1 tablet at night for 5 days. The second medicine Cetirizine is for allergy symptoms like sneezing and runny nose — take 1 tablet at night before sleeping for 3 days. Always take both medicines after eating food, never on an empty stomach. Cetirizine may make you feel sleepy so do not drive or operate machines after taking it. Complete the full course of medicines even if you feel better before finishing. Drink plenty of water and rest properly during this time. If your symptoms get worse or you feel any unusual side effects, stop the medicines and visit your doctor immediately."}'
+        },
+        {
+            "role": "user",
+            "content": f"Prescription text to parse (respond in ENGLISH JSON only):\n{ocr_text}"
         }
     ]
-    
-    import json
-    # Clean and parse JSON
+
     raw = chat_completion(messages, reasoning="medium").strip()
-    # Remove markdown code fences if present
-    if "```" in raw:
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.split("```")[0]
-    return json.loads(raw.strip())
-
-def answer_followup(question: str, context: dict, context_type: str, history: list = []) -> str:
-    if context_type == "triage":
-        system_prompt = f"""You are a helpful medical assistant. A patient has already been triaged with these results:
-- Triage level: {context.get('triage_level')}
-- Summary: {context.get('summary')}
-- Possible conditions: {', '.join(context.get('possible_conditions', []))}
-- Recommended action: {context.get('recommended_action')}
-
-Answer the patient's follow-up question in simple, clear language. Do NOT diagnose or prescribe.
-Keep your answer under 3 sentences. Be warm and easy to understand."""
-
-    elif context_type == "prescription":
-        meds = context.get('medications', [])
-        med_names = ', '.join([m.get('name', '') for m in meds])
-        system_prompt = f"""You are a helpful medical document assistant. A patient has a prescription with these medications: {med_names}.
-Prescription summary: {context.get('summary')}
-
-Answer the patient's follow-up question about their prescription in simple, plain language.
-Keep your answer under 3 sentences. Do NOT give new medical advice beyond what's in the prescription."""
-
-    messages = [{"role": "system", "content": system_prompt}]
-
-    # Add conversation history
-    for turn in history:
-        messages.append({"role": "user", "content": turn["question"]})
-        messages.append({"role": "assistant", "content": turn["answer"]})
-
-    # Add current question
-    messages.append({"role": "user", "content": question})
-
-    result = chat_completion(messages, reasoning="low")
-    # Strip any think tags if present
-    if "<think>" in result and "</think>" in result:
-        result = result.split("</think>")[-1].strip()
-    return result
-
-
-# ─── Test JSON parsing resilience ─────────────────────────────────────────
-
-def parse_llm_json(raw: str) -> dict:
-    """Mirrors the JSON parsing logic used in llm.py"""
-    raw = raw.strip()
     if "<think>" in raw and "</think>" in raw:
         raw = raw.split("</think>")[-1].strip()
     if "```" in raw:
@@ -179,120 +114,38 @@ def parse_llm_json(raw: str) -> dict:
     return json.loads(raw.strip())
 
 
-class TestJsonParsing:
+# ─── Follow-up Answer ──────────────────────────────────────────────────────
 
-    def test_clean_json(self):
-        raw = '{"triage_level": "LOW", "summary": "Patient is fine."}'
-        result = parse_llm_json(raw)
-        assert result["triage_level"] == "LOW"
-        assert "summary" in result
+def answer_followup(question: str, context: dict, context_type: str, history: list = []) -> str:
+    if context_type == "triage":
+        system_prompt = f"""You are a helpful medical assistant. A patient has already been triaged with these results:
+- Triage level: {context.get('triage_level')}
+- Summary: {context.get('summary')}
+- Possible conditions: {', '.join(context.get('possible_conditions', []))}
+- Recommended action: {context.get('recommended_action')}
 
-    def test_json_with_markdown_fence(self):
-        raw = '```json\n{"triage_level": "HIGH", "summary": "Urgent care needed."}\n```'
-        result = parse_llm_json(raw)
-        assert result["triage_level"] == "HIGH"
+Answer the patient's follow-up question in simple, clear English. Do NOT diagnose or prescribe.
+Give a helpful answer in 5 to 8 sentences. Be warm, clear and easy to understand for someone with no medical education."""
 
-    def test_json_with_think_tags(self):
-        raw = '<think>Let me analyze this...</think>\n{"triage_level": "MEDIUM", "summary": "Monitor symptoms."}'
-        result = parse_llm_json(raw)
-        assert result["triage_level"] == "MEDIUM"
+    elif context_type == "prescription":
+        meds = context.get('medications', [])
+        med_names = ', '.join([m.get('name', '') for m in meds])
+        system_prompt = f"""You are a helpful medical document assistant. A patient has a prescription with these medications: {med_names}.
+Prescription summary: {context.get('summary')}
 
-    def test_json_with_think_and_fence(self):
-        raw = '<think>analyzing</think>\n```json\n{"triage_level": "LOW", "summary": "Rest advised."}\n```'
-        result = parse_llm_json(raw)
-        assert result["triage_level"] == "LOW"
+Answer the patient's follow-up question about their prescription in simple, plain English.
+Give a helpful answer in 5 to 8 sentences. Do NOT give new medical advice beyond what is in the prescription.
+Write as if explaining to someone with no medical education."""
 
-    def test_invalid_json_raises(self):
-        with pytest.raises(json.JSONDecodeError):
-            parse_llm_json("this is not json")
+    messages = [{"role": "system", "content": system_prompt}]
 
-    def test_triage_levels_valid(self):
-        valid_levels = {"LOW", "MEDIUM", "HIGH"}
-        raw = '{"triage_level": "HIGH", "summary": "test", "urgency_message": "go now", "possible_conditions": [], "recommended_action": "go", "follow_up_questions": []}'
-        result = parse_llm_json(raw)
-        assert result["triage_level"] in valid_levels
+    for turn in history:
+        messages.append({"role": "user", "content": turn["question"]})
+        messages.append({"role": "assistant", "content": turn["answer"]})
 
-    def test_prescription_json_structure(self):
-        raw = json.dumps({
-            "patient_name": "Ramesh",
-            "doctor_name": "Dr. Sharma",
-            "date": "2024-01-01",
-            "medications": [
-                {
-                    "name": "Paracetamol",
-                    "purpose": "Fever",
-                    "dosage": "500mg",
-                    "duration": "5 days",
-                    "side_effects": "None"
-                }
-            ],
-            "instructions": ["Take after food"],
-            "summary": "Simple fever prescription"
-        })
-        result = parse_llm_json(raw)
-        assert "medications" in result
-        assert len(result["medications"]) == 1
-        assert result["medications"][0]["name"] == "Paracetamol"
+    messages.append({"role": "user", "content": question})
 
-    def test_empty_medications_list(self):
-        raw = json.dumps({
-            "patient_name": None,
-            "doctor_name": None,
-            "date": None,
-            "medications": [],
-            "instructions": [],
-            "summary": "No medications found"
-        })
-        result = parse_llm_json(raw)
-        assert result["medications"] == []
-
-
-class TestPromptFormatting:
-
-    def test_symptom_prompt_contains_symptoms(self):
-        symptom_text = "I have fever and headache"
-        prompt_content = f"Patient symptoms: {symptom_text}"
-        assert symptom_text in prompt_content
-
-    def test_prescription_prompt_contains_ocr(self):
-        ocr_text = "Paracetamol 500mg BD x 5 days"
-        prompt_content = f"Prescription OCR text:\n{ocr_text}"
-        assert ocr_text in prompt_content
-
-    def test_followup_triage_context_format(self):
-        context = {
-            "triage_level": "MEDIUM",
-            "summary": "Patient has fever",
-            "possible_conditions": ["Flu", "Cold"],
-            "recommended_action": "Rest and hydrate"
-        }
-        system_prompt = f"""Triage level: {context.get('triage_level')}
-        Summary: {context.get('summary')}
-        Conditions: {', '.join(context.get('possible_conditions', []))}"""
-        assert "MEDIUM" in system_prompt
-        assert "Flu" in system_prompt
-
-    def test_message_list_structure(self):
-        messages = [
-            {"role": "system", "content": "You are a medical assistant"},
-            {"role": "user", "content": "I have a headache"}
-        ]
-        assert messages[0]["role"] == "system"
-        assert messages[1]["role"] == "user"
-        assert len(messages) == 2
-
-    def test_history_appended_correctly(self):
-        history = [
-            {"question": "What is paracetamol?", "answer": "A painkiller"},
-            {"question": "Can I take it with food?", "answer": "Yes"}
-        ]
-        messages = [{"role": "system", "content": "You are helpful"}]
-        for turn in history:
-            messages.append({"role": "user", "content": turn["question"]})
-            messages.append({"role": "assistant", "content": turn["answer"]})
-        messages.append({"role": "user", "content": "Any side effects?"})
-
-        assert len(messages) == 6
-        assert messages[-1]["content"] == "Any side effects?"
-        assert messages[1]["role"] == "user"
-        assert messages[2]["role"] == "assistant"
+    result = chat_completion(messages, reasoning="low")
+    if "<think>" in result and "</think>" in result:
+        result = result.split("</think>")[-1].strip()
+    return result
