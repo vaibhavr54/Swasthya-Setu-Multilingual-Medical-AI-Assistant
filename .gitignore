@@ -8,3 +8,6 @@ __pycache__/
 *.log
 .DS_Store
 Thumbs.db
+backend/data/chroma_db/
+*.bin
+*.sqlite3
