@@ -21,11 +21,21 @@ async def analyze_document(
         if not ocr_text.strip():
             raise HTTPException(status_code=400, detail="Could not extract text from document. Please upload a clearer image.")
 
-        # Step 2: Explain prescription via sarvam-m
-        explanation = explain_prescription(ocr_text)
+        # Step 2: Detect OCR language and translate to English for LLM
+        ocr_for_llm = ocr_text
+        try:
+            from services.sarvam import detect_language
+            detected_ocr_lang = detect_language(ocr_text[:200])
+            if detected_ocr_lang and not detected_ocr_lang.startswith("en"):
+                ocr_for_llm = translate_text(ocr_text, detected_ocr_lang, "en-IN")
+        except Exception:
+            pass  # fallback — use original OCR text
 
-        # Step 3: Translate summary and instructions if not English
-        if not target_language.startswith("en-IN"):
+        # Step 3: Explain prescription via sarvam-m (always in English now)
+        explanation = explain_prescription(ocr_for_llm)
+
+        # Step 4: Translate to target language if not English
+        if not target_language.startswith("en"):
             explanation["summary"] = translate_text(explanation["summary"], "en-IN", target_language)
             explanation["instructions"] = [
                 translate_text(inst, "en-IN", target_language)
@@ -45,7 +55,6 @@ async def analyze_document(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 # ─── Speak Document Summary ────────────────────────────────────────────────
 
