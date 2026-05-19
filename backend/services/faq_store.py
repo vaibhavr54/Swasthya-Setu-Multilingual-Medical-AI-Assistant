@@ -101,7 +101,7 @@ def get_collection():
 
     except Exception as e:
         _init_error = e
-        print(f"❌ ChromaDB initialization failed: {e}")
+        print(f"ChromaDB initialization failed: {e}")
         raise
 
 

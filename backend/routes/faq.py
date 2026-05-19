@@ -190,3 +190,13 @@ Context:
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.post("/admin/sync")
+async def admin_sync_faqs():
+    """Trigger FAQ sync manually (useful after editing JSON)."""
+    from services.faq_store import sync_faqs
+    result = sync_faqs()
+    return {
+        "status": "ok",
+        "message": "FAQ sync completed",
+        **result
+    }
