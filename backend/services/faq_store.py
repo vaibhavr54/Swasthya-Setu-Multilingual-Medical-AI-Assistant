@@ -2,10 +2,13 @@
 Medical FAQ Vector Store using ChromaDB + Mistral Embeddings API
 Replaces local sentence-transformers with Mistral API — faster cold start,
 smaller Docker image, no PyTorch dependency.
+
+Now with smart sync: auto-detects new, updated, and deleted FAQs.
 """
 
 import json
 import os
+import hashlib
 import chromadb
 from chromadb import Documents, EmbeddingFunction, Embeddings
 import requests
@@ -41,7 +44,7 @@ class MistralEmbeddingFunction(EmbeddingFunction):
         }
         payload = {
             "model": self.model,
-            "input": input,          # list of strings
+            "input": input,
             "encoding_format": "float"
         }
         response = requests.post(self.url, headers=headers, json=payload, timeout=30)
@@ -50,12 +53,19 @@ class MistralEmbeddingFunction(EmbeddingFunction):
             raise Exception(f"Mistral embed error {response.status_code}: {response.text}")
 
         data = response.json()
-        # Mistral returns: {"data": [{"embedding": [...], "index": 0}, ...]}
         embeddings = [item["embedding"] for item in sorted(data["data"], key=lambda x: x["index"])]
         return embeddings
 
 
-# ─── Collection init ───────────────────────────────────────────────────────
+# ─── Content Hashing ───────────────────────────────────────────────────────
+
+def _get_content_hash(faq: dict) -> str:
+    """Hash FAQ content to detect changes without re-embedding everything."""
+    content = f"{faq['question']}|{faq['answer']}|{faq['category']}|{','.join(sorted(faq.get('tags', [])))}"
+    return hashlib.md5(content.encode()).hexdigest()
+
+
+# ─── Collection init with Smart Sync ───────────────────────────────────────
 
 def get_collection():
     """Get or create ChromaDB collection with Mistral embeddings."""
@@ -79,13 +89,13 @@ def get_collection():
         ef = MistralEmbeddingFunction()
 
         _collection = _client.get_or_create_collection(
-            name="medical_faqs_mistral",   # new name — avoids conflict with old ST collection
+            name="medical_faqs_mistral",
             embedding_function=ef,
             metadata={"hnsw:space": "cosine"}
         )
 
-        if _collection.count() == 0:
-            _seed_faqs(_collection)
+        # Smart sync: handles new, updated, deleted FAQs
+        sync_faqs()
 
         return _collection
 
@@ -95,31 +105,119 @@ def get_collection():
         raise
 
 
-def _seed_faqs(collection):
-    """Load FAQs from JSON and embed via Mistral API into ChromaDB."""
-    print("🔄 Seeding medical FAQ embeddings via Mistral API...")
+# ─── Smart FAQ Sync ────────────────────────────────────────────────────────
 
+def sync_faqs() -> dict:
+    global _collection
+    collection = _collection
+    if collection is None:
+        raise RuntimeError("Collection not initialized")
+
+    # Load current JSON
     with open(FAQ_DATA_PATH, 'r', encoding='utf-8') as f:
-        faqs = json.load(f)
+        json_faqs_raw = json.load(f)
 
-    ids = []
-    documents = []
-    metadatas = []
+    # Handle both flat list and nested {"faqs": [...]} formats
+    if isinstance(json_faqs_raw, dict) and "faqs" in json_faqs_raw:
+        json_faqs = {faq['id']: faq for faq in json_faqs_raw['faqs']}
+    else:
+        json_faqs = {faq['id']: faq for faq in json_faqs_raw}
 
-    for faq in faqs:
-        doc_text = f"{faq['question']} {faq['answer']}"
-        ids.append(faq['id'])
-        documents.append(doc_text)
-        metadatas.append({
-            "question": faq['question'],
-            "answer": faq['answer'],
-            "category": faq['category'],
-            "tags": ", ".join(faq['tags'])
-        })
+    # Get existing IDs from ChromaDB
+    try:
+        existing = collection.get()
+        existing_ids = set(existing['ids']) if existing and existing['ids'] else set()
+    except Exception:
+        existing_ids = set()
 
-    collection.add(ids=ids, documents=documents, metadatas=metadatas)
-    print(f"✅ Seeded {len(faqs)} medical FAQs into ChromaDB via Mistral embed")
+    json_ids = set(json_faqs.keys())
 
+    # Determine actions
+    to_add = json_ids - existing_ids
+    to_delete = existing_ids - json_ids
+    to_update = set()
+
+    # Check for content changes in existing FAQs
+    common_ids = json_ids & existing_ids
+    if common_ids:
+        try:
+            existing_data = collection.get(ids=list(common_ids))
+            existing_meta_map = {
+                id_: meta for id_, meta in zip(existing_data['ids'], existing_data['metadatas'])
+            }
+            for fid in common_ids:
+                old_hash = existing_meta_map.get(fid, {}).get('content_hash', '')
+                new_hash = _get_content_hash(json_faqs[fid])
+                if new_hash != old_hash:
+                    to_update.add(fid)
+        except Exception as e:
+            print(f"⚠️ Could not check for updates: {e}")
+            # Fallback: re-embed all common IDs to be safe
+            to_update = common_ids
+
+    # Execute deletions
+    if to_delete:
+        collection.delete(ids=list(to_delete))
+        print(f"🗑️ Deleted {len(to_delete)} FAQs")
+
+    # Execute updates (delete old, will re-add below)
+    if to_update:
+        collection.delete(ids=list(to_update))
+        to_add = to_add | to_update  # Add to the add batch
+        print(f"🔄 Updating {len(to_update)} changed FAQs")
+
+    # Execute additions
+    if to_add:
+        faqs_to_add = [json_faqs[fid] for fid in sorted(to_add)]
+        ids = []
+        documents = []
+        metadatas = []
+
+        for faq in faqs_to_add:
+            doc_text = f"{faq['question']} {faq['answer']}"
+            ids.append(faq['id'])
+            documents.append(doc_text)
+            metadatas.append({
+                "question": faq['question'],
+                "answer": faq['answer'],
+                "category": faq['category'],
+                "tags": ", ".join(faq.get('tags', [])),
+                "content_hash": _get_content_hash(faq)
+            })
+
+        collection.add(ids=ids, documents=documents, metadatas=metadatas)
+        added_count = len([f for f in faqs_to_add if f['id'] in (to_add - to_update)])
+        updated_count = len([f for f in faqs_to_add if f['id'] in to_update])
+        if added_count:
+            print(f"✅ Added {added_count} new FAQs")
+        if updated_count:
+            print(f"✅ Re-embedded {updated_count} updated FAQs")
+
+    unchanged = len(common_ids - to_update)
+    if not any([to_add, to_delete, to_update]):
+        print(f"ℹ️ No changes detected ({unchanged} FAQs unchanged)")
+
+    total = collection.count()
+    print(f"📊 Total FAQs in store: {total}")
+
+    return {
+        "added": len(to_add - to_update),
+        "updated": len(to_update),
+        "deleted": len(to_delete),
+        "unchanged": unchanged,
+        "total": total
+    }
+
+
+# ─── Legacy seed (kept for compatibility) ──────────────────────────────────
+
+def _seed_faqs(collection):
+    """Legacy: seed all FAQs. Use sync_faqs() instead."""
+    print("🔄 Seeding medical FAQ embeddings via Mistral API...")
+    sync_faqs()
+
+
+# ─── Search ────────────────────────────────────────────────────────────────
 
 def semantic_search(query: str, n_results: int = 3) -> list:
     """Search FAQs semantically using Mistral embeddings."""
@@ -152,7 +250,7 @@ def get_faq_count() -> int:
 
 
 def reset_faq_store():
-    """Reset and re-seed — useful when FAQ data is updated."""
+    """Hard reset: delete collection and re-sync from scratch."""
     global _client, _collection, _init_error
     _init_error = None
     if _client:
