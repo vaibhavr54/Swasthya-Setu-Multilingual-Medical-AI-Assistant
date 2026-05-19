@@ -103,5 +103,600 @@
     "answer": "First year vaccinations in India: At birth — BCG, OPV, Hepatitis B. At 6 weeks — DPT, OPV, IPV, Hepatitis B, Hib, Rotavirus. At 10 weeks — DPT, OPV, Hib, Rotavirus. At 14 weeks — DPT, IPV, Hib, Rotavirus. At 6 months — OPV, Hepatitis B. At 9 months — MMR, Typhoid. Follow your local immunization schedule.",
     "category": "child_health",
     "tags": ["vaccination", "baby", "immunization", "infant", "BCG", "DPT"]
+  },
+  {
+    "id": "faq_016",
+    "question": "What are the early signs of thyroid problems?",
+    "answer": "Hypothyroidism (underactive thyroid) symptoms: unexplained weight gain, fatigue, feeling cold, dry skin, hair loss, constipation, and depression. Hyperthyroidism (overactive thyroid) symptoms: weight loss, rapid heartbeat, excessive sweating, anxiety, and tremors. A simple TSH blood test can diagnose thyroid disorders. Both conditions are manageable with medication once diagnosed.",
+    "category": "thyroid",
+    "tags": ["thyroid", "TSH", "hypothyroid", "hyperthyroid", "weight gain", "fatigue"]
+  },
+  {
+    "id": "faq_017",
+    "question": "How do I prevent malaria during monsoon season?",
+    "answer": "Prevent malaria by using mosquito nets (especially for children and pregnant women), applying mosquito repellent creams or sprays, wearing full-sleeve clothing in the evening, eliminating stagnant water around your home (coolers, flowerpots, tyres), and using mosquito coils or liquidators indoors. Consult a doctor promptly if fever develops during monsoon.",
+    "category": "malaria",
+    "tags": ["malaria", "mosquito", "monsoon", "prevention", "fever", "machar"]
+  },
+  {
+    "id": "faq_018",
+    "question": "What is the correct technique for using an inhaler?",
+    "answer": "Correct inhaler technique: shake the inhaler well, breathe out fully, place mouthpiece between teeth and seal lips around it, start breathing in slowly and press the canister once, continue breathing in slowly for 3-5 seconds, hold breath for 10 seconds, then breathe out slowly. Use a spacer device if available for better delivery. Rinse mouth after using steroid inhalers.",
+    "category": "respiratory",
+    "tags": ["inhaler", "asthma", "technique", "spacer", "breathing", "dama"]
+  },
+  {
+    "id": "faq_019",
+    "question": "How do I know if I have anemia?",
+    "answer": "Anemia symptoms include persistent fatigue and weakness, pale skin and nails, shortness of breath on mild exertion, dizziness, frequent headaches, and cold hands and feet. Women, young children, and vegetarians are at higher risk. A CBC (complete blood count) blood test confirms anemia. Iron-rich foods like green leafy vegetables, jaggery (gur), and lentils help prevent iron-deficiency anemia.",
+    "category": "blood_disorders",
+    "tags": ["anemia", "iron deficiency", "hemoglobin", "fatigue", "khoon ki kami", "weakness"]
+  },
+  {
+    "id": "faq_020",
+    "question": "What should I do if I miss a dose of my medication?",
+    "answer": "If you miss a dose: take it as soon as you remember. If it is almost time for the next dose, skip the missed dose and continue your regular schedule. Never double the dose to make up for a missed one. For critical medications like insulin, blood thinners, or epilepsy drugs, contact your doctor for specific guidance. Set a daily alarm to avoid missing doses.",
+    "category": "medication",
+    "tags": ["missed dose", "medicine", "dawa", "medication", "tablet"]
+  },
+  {
+    "id": "faq_021",
+    "question": "How can I manage joint pain at home?",
+    "answer": "For joint pain relief at home: apply ice pack for the first 48 hours to reduce swelling, then switch to warm compress. Rest the affected joint. Gentle stretching and low-impact exercise like swimming or walking can help. Maintain healthy weight to reduce pressure on joints. Paracetamol can provide short-term relief. Consult a doctor if pain is severe, persists beyond 2 weeks, or the joint is swollen and warm.",
+    "category": "musculoskeletal",
+    "tags": ["joint pain", "arthritis", "knee pain", "jodo ka dard", "swelling", "ghutne"]
+  },
+  {
+    "id": "faq_022",
+    "question": "What are the signs of dehydration and how do I treat it?",
+    "answer": "Signs of dehydration: dark yellow urine, dry mouth and lips, dizziness, fatigue, and reduced urination. In children, watch for no tears when crying, sunken fontanelle (soft spot), and listlessness. Treatment: drink ORS solution, coconut water, or plain water frequently. For infants, continue breastfeeding. Seek emergency care if the person is unconscious, has no urine for 8+ hours, or cannot keep fluids down.",
+    "category": "general",
+    "tags": ["dehydration", "ORS", "thirst", "pani", "dizziness", "paani ki kami"]
+  },
+  {
+    "id": "faq_023",
+    "question": "How do I care for a wound or cut at home?",
+    "answer": "Wound care: rinse hands before touching the wound. Clean the wound under running water for several minutes. Apply gentle pressure with a clean cloth to stop bleeding. Apply an antiseptic like Betadine or Savlon. Cover with a clean bandage and change dressing daily. Seek medical care for deep cuts, animal bites, puncture wounds, or wounds that do not stop bleeding within 10 minutes.",
+    "category": "first_aid",
+    "tags": ["wound", "cut", "first aid", "antiseptic", "bandage", "chot"]
+  },
+  {
+    "id": "faq_024",
+    "question": "What is the difference between a cold and the flu?",
+    "answer": "A cold (sardi) develops gradually with runny nose, sneezing, sore throat, and mild fatigue. Flu (influenza) comes on suddenly with high fever (above 101°F), severe body aches, headache, extreme fatigue, and dry cough. Flu symptoms are significantly more intense. Both are caused by viruses — antibiotics will not help. Flu can lead to serious complications; consult a doctor if symptoms are severe, especially in children, elderly, or people with chronic illness.",
+    "category": "respiratory",
+    "tags": ["cold", "flu", "influenza", "sardi", "fever", "cough", "khansi"]
+  },
+  {
+    "id": "faq_025",
+    "question": "How can I manage acidity and heartburn?",
+    "answer": "To manage acidity (GERD): eat smaller, more frequent meals. Avoid spicy, oily, and fried foods, tea, coffee, and alcohol. Do not lie down immediately after eating — wait at least 2 hours. Elevate the head of your bed slightly. Antacids like Digene or Gelusil provide quick relief. If heartburn occurs more than twice a week or you have difficulty swallowing, consult a doctor.",
+    "category": "gastro",
+    "tags": ["acidity", "heartburn", "GERD", "gas", "antacid", "pet mein jalan", "digene"]
+  },
+  {
+    "id": "faq_026",
+    "question": "What are the symptoms of a urinary tract infection (UTI)?",
+    "answer": "UTI symptoms include a burning sensation while urinating, frequent urge to urinate with little output, cloudy or foul-smelling urine, lower abdominal or pelvic pain, and sometimes blood in urine. Women are more prone to UTIs. Drink plenty of water and consult a doctor promptly — untreated UTIs can spread to the kidneys. Do not self-medicate with antibiotics without a prescription.",
+    "category": "urinary",
+    "tags": ["UTI", "urinary infection", "burning urine", "peshab mein jalan", "bladder"]
+  },
+  {
+    "id": "faq_027",
+    "question": "How should I store insulin properly?",
+    "answer": "Unopened insulin vials or pens should be stored in the refrigerator (2-8°C). Never freeze insulin. The insulin currently in use can be kept at room temperature (below 25°C) for up to 28 days. Keep away from direct sunlight and heat. Always check the expiry date. Discard insulin that appears cloudy or discolored (except NPH insulin, which should look uniformly cloudy after mixing).",
+    "category": "diabetes",
+    "tags": ["insulin", "storage", "diabetes", "refrigerator", "injection", "dawa"]
+  },
+  {
+    "id": "faq_028",
+    "question": "What are the warning signs of a stroke?",
+    "answer": "Use the FAST test for stroke: Face drooping (one side of face droops or is numb), Arm weakness (one arm is weak or numb), Speech difficulty (slurred or strange speech), Time to call 108 immediately. Other signs include sudden severe headache, vision loss, and loss of balance. Time is critical — every minute without treatment increases brain damage. Do not wait to see if symptoms improve.",
+    "category": "cardiac",
+    "tags": ["stroke", "brain attack", "FAST", "paralysis", "108", "emergency", "laqwa"]
+  },
+  {
+    "id": "faq_029",
+    "question": "How do I treat a minor burn at home?",
+    "answer": "For minor burns: immediately cool the burn under cool (not cold or icy) running water for at least 10-20 minutes. Do not apply toothpaste, butter, or ice — these can worsen damage. Cover loosely with a clean non-fluffy material like cling film. Take paracetamol for pain. Seek medical care for burns larger than the palm, burns on face, hands, genitals, or feet, or any deep burns with white or charred skin.",
+    "category": "first_aid",
+    "tags": ["burn", "jalna", "first aid", "fire", "hot water", "scalding"]
+  },
+  {
+    "id": "faq_030",
+    "question": "What is the recommended daily water intake?",
+    "answer": "Adults should drink 8-10 glasses (2-2.5 litres) of water daily. Increase intake during summer, physical activity, fever, diarrhea, or pregnancy. Signs of adequate hydration include pale yellow urine. Drinking water before meals can aid digestion and weight management. Pure coconut water, buttermilk (chaas), and lemon water also count toward fluid intake. Avoid replacing water with sugary drinks, sodas, or excessive tea and coffee.",
+    "category": "general",
+    "tags": ["water", "hydration", "pani", "fluid intake", "daily health"]
+  },
+  {
+    "id": "faq_031",
+    "question": "How do I know if I am having a panic attack vs a heart attack?",
+    "answer": "Panic attacks and heart attacks can feel similar. Panic attacks typically peak within 10 minutes, are often triggered by stress or anxiety, and include racing heart, shortness of breath, tingling, and intense fear. Heart attacks involve pressure-like chest pain that may radiate to the arm or jaw, and physical exertion may trigger symptoms. If you are unsure, treat it as a heart attack and call 108 immediately. Always get evaluated — only a doctor can confirm the diagnosis.",
+    "category": "cardiac",
+    "tags": ["panic attack", "heart attack", "anxiety", "chest pain", "palpitations", "ghabrahat"]
+  },
+  {
+    "id": "faq_032",
+    "question": "What are common causes of back pain and how can I relieve it?",
+    "answer": "Common causes of back pain include poor posture, muscle strain, prolonged sitting, heavy lifting, and disc problems. Relief measures: apply a warm compress, take short walks rather than prolonged bed rest, do gentle stretching, and maintain good posture while sitting and standing. Paracetamol or ibuprofen can help with pain. Consult a doctor if back pain radiates down the leg, is accompanied by numbness or weakness, or follows an injury.",
+    "category": "musculoskeletal",
+    "tags": ["back pain", "kamar dard", "posture", "spine", "lower back", "disc"]
+  },
+  {
+    "id": "faq_033",
+    "question": "What should pregnant women avoid eating?",
+    "answer": "Pregnant women should avoid: raw or undercooked meat and eggs, unpasteurized dairy products, high-mercury fish (shark, swordfish, king mackerel), raw sprouts, unwashed fruits and vegetables, excessive caffeine (limit to 200mg/day), and alcohol completely. Also avoid self-medicating — many common drugs are unsafe in pregnancy. Always consult your gynaecologist before taking any medication.",
+    "category": "pregnancy",
+    "tags": ["pregnancy", "garbhavastha", "diet", "food safety", "antenatal", "pregnant"]
+  },
+  {
+    "id": "faq_034",
+    "question": "How do I manage constipation naturally?",
+    "answer": "To relieve constipation: drink 8-10 glasses of water daily, eat high-fiber foods (whole grains, fruits, vegetables, pulses), include isabgol (psyllium husk) in warm water, increase physical activity like walking, and establish a regular toilet routine. Avoid refined foods and excessive tea or coffee. Do not strain excessively. If constipation is severe, lasts more than 2 weeks, or is accompanied by blood in stool or weight loss, consult a doctor.",
+    "category": "gastro",
+    "tags": ["constipation", "kabz", "fiber", "bowel", "isabgol", "digestion"]
+  },
+  {
+    "id": "faq_035",
+    "question": "When should I get a cholesterol test done?",
+    "answer": "Adults above 35 years should get a lipid profile test every 5 years. Earlier testing is recommended if you have: diabetes, high blood pressure, a family history of heart disease, obesity, or you smoke. Normal total cholesterol is below 200 mg/dL. LDL (bad cholesterol) should be below 100 mg/dL. HDL (good cholesterol) should be above 40 mg/dL for men and 50 mg/dL for women. High cholesterol has no symptoms — regular testing is the only way to detect it.",
+    "category": "cardiac",
+    "tags": ["cholesterol", "lipid profile", "LDL", "HDL", "heart", "test"]
+  },
+  {
+    "id": "faq_036",
+    "question": "What are the symptoms and treatment of typhoid?",
+    "answer": "Typhoid (enteric fever) symptoms: sustained high fever that rises gradually over days, headache, weakness, abdominal pain, loss of appetite, and sometimes rose-coloured spots on the trunk. Typhoid is diagnosed by Widal test or blood culture. Treatment requires a full course of antibiotics prescribed by a doctor. Drink only boiled or purified water, eat freshly cooked food, and maintain strict hand hygiene to prevent spread.",
+    "category": "infectious_disease",
+    "tags": ["typhoid", "enteric fever", "Widal", "fever", "abdomen", "contaminated water"]
+  },
+  {
+    "id": "faq_037",
+    "question": "How can I quit smoking?",
+    "answer": "Steps to quit smoking: set a quit date, inform family and friends for support, remove cigarettes and lighters from your home and workplace, identify triggers (stress, after meals) and plan alternatives, use nicotine replacement therapy (patches, gum) if needed, and consult a doctor about prescription medications like varenicline. The urge to smoke usually passes in 5-10 minutes — stay busy, chew gum, or drink water. Relapse is common; do not give up — each attempt increases success.",
+    "category": "lifestyle",
+    "tags": ["smoking", "cigarette", "quit", "nicotine", "tobacco", "beedi"]
+  },
+  {
+    "id": "faq_038",
+    "question": "What is the correct way to check blood pressure at home?",
+    "answer": "To check BP at home: sit quietly for 5 minutes before measuring. Sit with back supported and feet flat on the floor. Rest your arm on a table at heart level. Place the cuff on bare skin 2cm above the elbow. Do not talk during the measurement. Take 2 readings 1-2 minutes apart and record the average. Check at the same time daily, ideally morning and evening. Avoid tea, coffee, or exercise 30 minutes before measuring.",
+    "category": "hypertension",
+    "tags": ["blood pressure", "BP monitor", "home BP", "BP check", "hypertension"]
+  },
+  {
+    "id": "faq_039",
+    "question": "How do I know if a child needs stitches for a cut?",
+    "answer": "A child's cut likely needs stitches if: the wound is deeper than 0.5cm, edges of the wound gape open and do not stay together, bleeding does not stop after 10 minutes of firm pressure, the cut is on the face or near a joint, the wound is caused by a dirty or rusty object, or the wound is more than 1cm long. Go to the nearest emergency department quickly, as stitches are most effective within 6 hours of the injury.",
+    "category": "child_health",
+    "tags": ["stitches", "cut", "wound", "child", "first aid", "injury", "chot"]
+  },
+  {
+    "id": "faq_040",
+    "question": "What are the symptoms of COVID-19 and when should I see a doctor?",
+    "answer": "Common COVID-19 symptoms: fever, dry cough, fatigue, loss of taste or smell, sore throat, body aches, and headache. Most people recover at home with rest, hydration, and paracetamol for fever. Seek emergency care if you experience difficulty breathing, persistent chest pain, confusion, inability to stay awake, or bluish lips or face. High-risk individuals (elderly, diabetic, immunocompromised) should consult a doctor early. Isolate yourself to prevent spread.",
+    "category": "infectious_disease",
+    "tags": ["COVID-19", "corona", "covid", "fever", "cough", "isolation", "oxygen"]
+  },
+  {
+    "id": "faq_041",
+    "question": "What is the right way to use a glucometer to check blood sugar?",
+    "answer": "Using a glucometer: wash and dry your hands thoroughly. Insert a test strip into the meter. Use a lancet to prick the side of a fingertip. Gently squeeze a small drop of blood and touch it to the strip. Record the reading with date and time. Fasting readings are taken before eating in the morning. Post-meal readings are taken 2 hours after the first bite of food. Keep the device clean, store strips at room temperature, and check expiry dates regularly.",
+    "category": "diabetes",
+    "tags": ["glucometer", "blood sugar", "glucose monitor", "diabetes", "self-monitoring", "sugar test"]
+  },
+  {
+    "id": "faq_042",
+    "question": "How do I treat a sprain or twisted ankle at home?",
+    "answer": "Use the RICE method for sprains: Rest — stop activity and avoid putting weight on the injured area. Ice — apply ice pack wrapped in a cloth for 15-20 minutes every 2 hours in the first 48 hours. Compression — wrap with a bandage to reduce swelling. Elevation — keep the injured limb raised above heart level. Take paracetamol or ibuprofen for pain. Seek medical care if you cannot bear any weight, there is severe swelling or bruising, or pain does not improve in 2-3 days.",
+    "category": "musculoskeletal",
+    "tags": ["sprain", "ankle", "RICE", "injury", "twist", "moch", "first aid"]
+  },
+  {
+    "id": "faq_043",
+    "question": "How can I manage migraine headaches?",
+    "answer": "During a migraine: rest in a dark, quiet room; apply a cold or warm compress to the head or neck; take pain relief medication (ibuprofen or paracetamol) at the first sign. Identify and avoid triggers such as strong smells, bright lights, skipped meals, dehydration, stress, or irregular sleep. Maintain a headache diary to track triggers. If migraines are frequent (more than 4 per month), severe, or associated with vision changes or weakness, consult a neurologist.",
+    "category": "neurology",
+    "tags": ["migraine", "headache", "sir dard", "triggers", "aura", "pain"]
+  },
+  {
+    "id": "faq_044",
+    "question": "When is it safe to give aspirin to a child?",
+    "answer": "Aspirin should NOT be given to children below 16 years of age. It is linked to Reye's syndrome, a rare but life-threatening condition affecting the brain and liver in children recovering from viral infections. For fever and pain in children, use paracetamol (Crocin) or ibuprofen in weight-appropriate doses. Always check with your paediatrician before giving any medication to a child.",
+    "category": "child_health",
+    "tags": ["aspirin", "child", "Reye's syndrome", "fever", "paracetamol", "kids medicine"]
+  },
+  {
+    "id": "faq_045",
+    "question": "What are the symptoms of kidney stones?",
+    "answer": "Kidney stone symptoms: severe pain in the back or side below the ribs (comes in waves), pain radiating to the lower abdomen and groin, burning sensation during urination, blood in urine, frequent urge to urinate, nausea or vomiting, and fever if infection is present. Drink 2.5-3 litres of water daily to help pass small stones and prevent new ones. Seek immediate care if fever accompanies pain, as this suggests an infection requiring urgent treatment.",
+    "category": "urinary",
+    "tags": ["kidney stone", "pathri", "renal colic", "urine", "pain", "peetth dard"]
+  },
+  {
+    "id": "faq_046",
+    "question": "How can I manage stress and anxiety naturally?",
+    "answer": "Natural ways to manage stress and anxiety: practice deep breathing or pranayama daily, try meditation or mindfulness for 10-15 minutes, get regular physical exercise, maintain consistent sleep schedule, limit caffeine and alcohol, connect with friends and family, pursue a hobby, and take regular breaks from screens. If anxiety is affecting daily life, relationships, or work, consider speaking with a mental health professional. There is no shame in seeking help for mental health.",
+    "category": "mental_health",
+    "tags": ["stress", "anxiety", "mental health", "tension", "meditation", "pranayama", "chinta"]
+  },
+  {
+    "id": "faq_047",
+    "question": "What are normal values for a complete blood count (CBC)?",
+    "answer": "Normal CBC values for adults: Hemoglobin — men: 13.5-17.5 g/dL, women: 12.0-15.5 g/dL. White blood cells (WBC): 4,000-11,000 cells/μL. Platelets: 1,50,000-4,00,000 cells/μL. RBC count — men: 4.5-5.5 million/μL, women: 4.0-5.0 million/μL. Values outside these ranges may indicate infection, anemia, or other conditions. Always discuss CBC results with your doctor — some variation is normal.",
+    "category": "diagnostics",
+    "tags": ["CBC", "blood test", "hemoglobin", "WBC", "platelets", "complete blood count"]
+  },
+  {
+    "id": "faq_048",
+    "question": "What is the correct posture for sitting at a desk?",
+    "answer": "Correct sitting posture: keep feet flat on the floor or on a footrest, knees at 90 degrees, thighs parallel to the floor. Keep back straight and supported by the chair backrest. Computer screen should be at eye level, about an arm's length away. Elbows should be at 90 degrees while typing. Avoid crossing your legs for long periods. Take a break every 45-60 minutes to stand, stretch, and walk for a few minutes.",
+    "category": "lifestyle",
+    "tags": ["posture", "desk", "back pain", "neck pain", "ergonomics", "office", "sitting"]
+  },
+  {
+    "id": "faq_049",
+    "question": "How do I prevent food poisoning?",
+    "answer": "Prevent food poisoning: wash hands thoroughly before and after handling food, cook meat and eggs thoroughly, refrigerate perishable foods within 2 hours of cooking, store raw meat separately from other foods, avoid eating from stalls with questionable hygiene, drink clean or boiled water, wash fruits and vegetables before eating, and check expiry dates on packaged food. Avoid cut fruits and chutneys kept at room temperature for more than 2 hours.",
+    "category": "gastro",
+    "tags": ["food poisoning", "food safety", "hygiene", "stomach infection", "vomiting", "ulti"]
+  },
+  {
+    "id": "faq_050",
+    "question": "What are the symptoms of appendicitis?",
+    "answer": "Appendicitis symptoms: pain that begins around the navel and shifts to the lower right abdomen, worsening pain over several hours, nausea and vomiting, loss of appetite, low-grade fever, and pain that worsens with movement or deep breathing. Appendicitis is a medical emergency — if not treated promptly, the appendix can rupture and cause serious infection. Go to the nearest emergency immediately if you suspect appendicitis. Do not take painkillers or laxatives before being evaluated.",
+    "category": "gastro",
+    "tags": ["appendicitis", "appendix", "stomach pain", "emergency", "right side pain", "surgery"]
+  },
+  {
+    "id": "faq_051",
+    "question": "How can I improve sleep quality?",
+    "answer": "Improve sleep quality: go to bed and wake up at the same time every day including weekends. Avoid screens (phone, TV) 1 hour before bed. Keep the bedroom dark, cool, and quiet. Avoid heavy meals, caffeine, and alcohol close to bedtime. Exercise regularly but not within 3 hours of sleep. Try relaxation techniques like deep breathing or reading. If you consistently have trouble sleeping for more than 3 weeks, consult a doctor as chronic insomnia can affect health significantly.",
+    "category": "lifestyle",
+    "tags": ["sleep", "insomnia", "neend", "sleep hygiene", "rest", "nidra"]
+  },
+  {
+    "id": "faq_052",
+    "question": "What are the signs that a child is not growing properly?",
+    "answer": "Signs of growth concern in children: consistently falling below the 3rd percentile on growth charts, not gaining weight or height over 6 months, losing previously achieved developmental milestones, very short stature compared to peers of same age, and failure to gain weight in infants. Growth problems can be caused by nutritional deficiencies, thyroid disorders, growth hormone deficiency, or chronic illness. A paediatrician should evaluate growth concerns promptly.",
+    "category": "child_health",
+    "tags": ["child growth", "height", "weight", "growth chart", "nutrition", "paediatrics", "bachcha"]
+  },
+  {
+    "id": "faq_053",
+    "question": "How do I manage high uric acid levels (gout)?",
+    "answer": "To manage high uric acid and gout: avoid high-purine foods — organ meats (liver, kidney), red meat, shellfish, beer, and alcohol. Drink 2-3 litres of water daily. Limit sugary drinks and fructose. Maintain healthy weight. During a gout attack, rest and elevate the affected joint, apply ice, and take prescribed medication. Allopurinol is a common long-term medication to lower uric acid. Regular blood tests are needed to monitor levels.",
+    "category": "musculoskeletal",
+    "tags": ["gout", "uric acid", "joint pain", "big toe", "allopurinol", "vaat"]
+  },
+  {
+    "id": "faq_054",
+    "question": "What should I do if someone is having a seizure?",
+    "answer": "During a seizure: stay calm and time the seizure. Protect the person from injury by clearing the area of hard or sharp objects. Gently cushion their head. Turn the person onto their side (recovery position) to prevent choking. Do NOT hold the person down or put anything in their mouth. Call 108 if: it is the person's first seizure, the seizure lasts more than 5 minutes, the person does not regain consciousness, or another seizure follows immediately. Stay with the person until they are fully alert.",
+    "category": "neurology",
+    "tags": ["seizure", "epilepsy", "fits", "dora", "first aid", "convulsion", "mirgi"]
+  },
+  {
+    "id": "faq_055",
+    "question": "How can I manage weight gain?",
+    "answer": "For healthy weight control: eat balanced meals with plenty of vegetables, whole grains, lean protein, and dal. Avoid sugary drinks, fried foods, and refined carbohydrates. Practise portion control — use smaller plates. Exercise at least 150 minutes per week (brisk walking, cycling, swimming). Drink water before meals. Avoid eating while watching TV. Get enough sleep — poor sleep increases hunger hormones. Set realistic goals (0.5-1 kg per week). Fad diets are not sustainable; focus on long-term lifestyle changes.",
+    "category": "lifestyle",
+    "tags": ["weight loss", "obesity", "motapa", "diet", "exercise", "wajan kam karna"]
+  },
+  {
+    "id": "faq_056",
+    "question": "What are the symptoms of jaundice and when is it serious?",
+    "answer": "Jaundice symptoms: yellowing of skin and whites of eyes, dark yellow or brown urine, pale or clay-coloured stools, fatigue, abdominal pain, and itching. In newborns, mild jaundice is common and usually resolves in 2 weeks. Jaundice in adults is always a sign of an underlying condition (hepatitis, liver disease, bile duct obstruction) and requires prompt medical evaluation. Seek emergency care if jaundice is accompanied by high fever, severe abdominal pain, confusion, or vomiting blood.",
+    "category": "liver",
+    "tags": ["jaundice", "piliya", "liver", "hepatitis", "bilirubin", "yellow eyes"]
+  },
+  {
+    "id": "faq_057",
+    "question": "How do I perform CPR on an adult?",
+    "answer": "CPR for adults: check if the person is unresponsive and not breathing normally. Call 108 immediately. Place the heel of your hand on the centre of the chest. Place your other hand on top, interlace fingers, and keep arms straight. Push down hard and fast — at least 5cm deep, 100-120 compressions per minute. If trained, give 2 rescue breaths after every 30 compressions. Continue until emergency services arrive or the person starts breathing. Even hands-only CPR saves lives.",
+    "category": "first_aid",
+    "tags": ["CPR", "cardiac arrest", "emergency", "resuscitation", "108", "first aid"]
+  },
+  {
+    "id": "faq_058",
+    "question": "What vitamins and supplements should I take daily?",
+    "answer": "Most people eating a balanced diet do not need supplements. However, commonly recommended ones in India include: Vitamin D (deficiency is very common — most adults benefit from 1000-2000 IU daily), Vitamin B12 (essential for vegetarians and vegans), Iron and Folic acid (for pregnant women and those with anemia), and Calcium (for older women and those with low dairy intake). Do not take high-dose supplements without medical advice. Get a blood test first to identify actual deficiencies.",
+    "category": "nutrition",
+    "tags": ["vitamins", "supplements", "Vitamin D", "B12", "iron", "calcium", "nutrition"]
+  },
+  {
+    "id": "faq_059",
+    "question": "What are the symptoms of depression?",
+    "answer": "Depression symptoms: persistent sadness or emptiness lasting more than 2 weeks, loss of interest in activities once enjoyed, changes in sleep (too much or too little), changes in appetite or weight, fatigue and low energy, difficulty concentrating, feelings of worthlessness or excessive guilt, and in severe cases, thoughts of death or suicide. Depression is a medical condition, not a weakness. Treatment with therapy and/or medication is highly effective. Speak to a doctor or mental health professional if you recognise these symptoms.",
+    "category": "mental_health",
+    "tags": ["depression", "sadness", "udaasi", "mental health", "mood", "therapy", "mano rog"]
+  },
+  {
+    "id": "faq_060",
+    "question": "How can I protect my eyes from screen strain?",
+    "answer": "Protect eyes from digital eye strain: follow the 20-20-20 rule — every 20 minutes, look at something 20 feet away for 20 seconds. Adjust screen brightness to match surrounding light. Keep the screen at arm's length. Use anti-glare screen filters if needed. Blink frequently to keep eyes moist. Use lubricating eye drops (artificial tears) if eyes feel dry. Ensure your glasses prescription is up to date. Consult an eye doctor if you experience persistent headaches, blurred vision, or eye pain.",
+    "category": "eye_health",
+    "tags": ["eye strain", "screen time", "digital eye", "20-20-20", "dry eyes", "aankh", "vision"]
+  },
+  {
+    "id": "faq_061",
+    "question": "What is the difference between Type 1 and Type 2 diabetes?",
+    "answer": "Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. It usually develops in children and young adults and requires insulin injections for life. Type 2 diabetes is caused by insulin resistance and usually develops in adults, often linked to obesity and lifestyle factors. Type 2 can initially be managed with diet, exercise, and oral medications; insulin may be needed later. Both types require regular monitoring of blood sugar and long-term medical management.",
+    "category": "diabetes",
+    "tags": ["Type 1 diabetes", "Type 2 diabetes", "insulin", "juvenile diabetes", "madhumeh", "blood sugar"]
+  },
+  {
+    "id": "faq_062",
+    "question": "How do I prevent heat stroke during summer?",
+    "answer": "Prevent heat stroke: stay indoors or in shade during peak heat hours (11am-4pm). Drink water frequently even if not thirsty. Wear loose, light-coloured cotton clothing. Use a hat or umbrella outdoors. Avoid strenuous outdoor activity in extreme heat. Never leave children or elderly in parked cars. Signs of heat stroke (medical emergency): body temperature above 40°C, confusion, hot and dry skin, loss of consciousness. Move the person to a cool area, apply cool water to skin, and call 108 immediately.",
+    "category": "general",
+    "tags": ["heat stroke", "garmi", "summer", "dehydration", "loo", "heat exhaustion"]
+  },
+  {
+    "id": "faq_063",
+    "question": "What are the early warning signs of cancer?",
+    "answer": "General early warning signs of cancer (CAUTION): Change in bowel or bladder habits, A sore that does not heal, Unusual bleeding or discharge, Thickening or lump in breast or elsewhere, Indigestion or difficulty swallowing, Obvious change in a wart or mole, Nagging cough or hoarseness. Other red flags: unexplained weight loss, persistent fatigue, and swollen lymph nodes. These symptoms do not always mean cancer, but should be evaluated by a doctor promptly. Early detection greatly improves outcomes.",
+    "category": "oncology",
+    "tags": ["cancer", "early signs", "lump", "CAUTION", "screening", "tumor", "kark rog"]
+  },
+  {
+    "id": "faq_064",
+    "question": "How do I care for an elderly person with dementia at home?",
+    "answer": "Caring for a person with dementia: maintain a consistent daily routine. Speak slowly, clearly, and calmly. Use simple sentences. Keep the home safe by removing tripping hazards, installing grab bars, and securing doors. Label rooms and objects to help orientation. Engage them in simple activities they enjoy. Ensure adequate nutrition, hydration, and sleep. Caregiver burnout is real — seek support from family, community, or a counsellor. Consult a neurologist for medication and guidance on managing behavioural symptoms.",
+    "category": "elderly_care",
+    "tags": ["dementia", "Alzheimer's", "memory loss", "elderly", "caregiver", "bhoolna"]
+  },
+  {
+    "id": "faq_065",
+    "question": "What are the symptoms of low blood pressure (hypotension)?",
+    "answer": "Low blood pressure (below 90/60 mmHg) symptoms: dizziness or lightheadedness especially when standing up, fainting, blurred vision, nausea, fatigue, and difficulty concentrating. Causes include dehydration, prolonged bed rest, certain medications, and heart conditions. Management: stand up slowly from sitting or lying down, drink more fluids, eat small frequent meals, reduce alcohol, and wear compression stockings if recommended. Consult a doctor if symptoms are frequent or you faint.",
+    "category": "hypertension",
+    "tags": ["low BP", "hypotension", "dizziness", "fainting", "chakkar", "blood pressure"]
+  },
+  {
+    "id": "faq_066",
+    "question": "How do I prevent and treat mouth ulcers?",
+    "answer": "Mouth ulcers (aphthous ulcers) usually heal within 1-2 weeks. Triggers include stress, vitamin deficiencies (B12, iron, folate), injury from sharp food or dental braces, and certain foods like citrus. Treatment: rinse with warm salt water, apply topical gels like Orasore or Zytee for pain relief, avoid spicy and acidic foods, and eat soft foods. Increase intake of green vegetables and dairy. If ulcers are very large, last more than 3 weeks, or you have multiple at once, see a doctor.",
+    "category": "oral_health",
+    "tags": ["mouth ulcer", "aphthous ulcer", "muh ka chhala", "oral health", "vitamin deficiency"]
+  },
+  {
+    "id": "faq_067",
+    "question": "What are the causes and treatment for hair loss?",
+    "answer": "Common causes of hair loss include nutritional deficiencies (iron, protein, Vitamin D, B12), thyroid disorders, hormonal changes (PCOS, post-pregnancy), extreme stress, certain medications, and genetic pattern baldness. Treatment depends on the cause: address nutritional deficiencies with diet and supplements, treat underlying hormonal or thyroid issues, and manage stress. Topical minoxidil is available for pattern baldness. Consult a dermatologist for persistent or sudden severe hair loss.",
+    "category": "dermatology",
+    "tags": ["hair loss", "baal jhadna", "alopecia", "baldness", "minoxidil", "thyroid", "PCOS"]
+  },
+  {
+    "id": "faq_068",
+    "question": "How do I know if my child has ADHD?",
+    "answer": "ADHD symptoms in children: difficulty staying focused on tasks, easily distracted, forgetting daily activities, difficulty following instructions, excessive talking, inability to sit still, and acting impulsively without thinking. Symptoms must be present in more than one setting (home and school) and affect daily functioning. ADHD is diagnosed by a paediatrician or child psychiatrist through clinical evaluation — not a single test. Effective management includes behavioural therapy, school support, and sometimes medication.",
+    "category": "child_health",
+    "tags": ["ADHD", "hyperactivity", "child", "attention", "behaviour", "school", "focus"]
+  },
+  {
+    "id": "faq_069",
+    "question": "What are the symptoms of PCOS in women?",
+    "answer": "PCOS (Polycystic Ovary Syndrome) symptoms: irregular or missed periods, excess facial and body hair, acne, oily skin, thinning hair on the scalp, weight gain especially around the abdomen, and difficulty conceiving. PCOS is also associated with insulin resistance and increased risk of Type 2 diabetes. Diagnosis involves blood tests (hormones, blood sugar) and ultrasound. Management includes lifestyle changes (weight loss, exercise, low-GI diet), hormonal treatment, and medication depending on symptoms.",
+    "category": "womens_health",
+    "tags": ["PCOS", "irregular periods", "hormones", "acne", "fertility", "women", "mahila"]
+  },
+  {
+    "id": "faq_070",
+    "question": "What should I do if someone swallows poison or an overdose of medicine?",
+    "answer": "If someone swallows poison or has a medication overdose: call 108 immediately. Do NOT induce vomiting unless specifically told to by emergency services — for some poisons this worsens harm. Try to identify the substance and how much was taken, and give this information to emergency responders. Keep the person awake and calm if conscious. If unconscious and breathing, place in recovery position on their side. Never give anything to eat or drink. Time is critical — act fast.",
+    "category": "first_aid",
+    "tags": ["poisoning", "overdose", "emergency", "108", "first aid", "medicine overdose", "zeher"]
+  },
+  {
+    "id": "faq_071",
+    "question": "How should I take care of my skin during summer?",
+    "answer": "Summer skin care: apply broad-spectrum sunscreen (SPF 30 or higher) 20 minutes before going outdoors and reapply every 2 hours. Wear full-sleeved cotton clothes and a hat. Stay well hydrated. Cleanse face twice daily to remove sweat and dirt. Use a light, non-comedogenic moisturiser. Treat prickly heat (ghamori) with calamine lotion and loose clothing. Consult a dermatologist for persistent rashes, sunburn with blistering, or fungal infections which are common in humid conditions.",
+    "category": "dermatology",
+    "tags": ["skin care", "sunscreen", "summer", "prickly heat", "ghamori", "rash", "twacha"]
+  },
+  {
+    "id": "faq_072",
+    "question": "What are the risks and prevention of osteoporosis?",
+    "answer": "Osteoporosis causes bones to become weak and fracture easily. Risk factors: being female, age above 50, menopause, low calcium and Vitamin D intake, smoking, excess alcohol, low physical activity, family history, and long-term steroid use. Prevention: consume calcium-rich foods (dairy, ragi, sesame seeds, green leafy vegetables), get adequate Vitamin D (sunlight exposure, supplements), do weight-bearing exercises like walking, avoid smoking and alcohol, and get a bone density (DEXA) scan after age 50.",
+    "category": "musculoskeletal",
+    "tags": ["osteoporosis", "bone density", "fracture", "calcium", "Vitamin D", "menopause", "haddi"]
+  },
+  {
+    "id": "faq_073",
+    "question": "How do I manage diabetic foot care?",
+    "answer": "Diabetic foot care: inspect feet daily for cuts, blisters, redness, or swelling. Wash feet daily in lukewarm water and dry gently, especially between toes. Apply moisturiser to prevent cracking — avoid between toes. Trim toenails straight across. Wear well-fitting, comfortable footwear — never walk barefoot, even indoors. Avoid hot water bottles or heating pads on feet. Report any wound, infection, or colour change to your doctor immediately, as diabetic foot ulcers can worsen rapidly.",
+    "category": "diabetes",
+    "tags": ["diabetic foot", "foot care", "diabetes", "ulcer", "neuropathy", "paon"]
+  },
+  {
+    "id": "faq_074",
+    "question": "What are signs that a newborn baby needs emergency care?",
+    "answer": "Take a newborn to emergency immediately if: breathing rate is very fast (above 60 breaths/min) or very slow, skin is blue or grey, baby is limp and unresponsive, jaundice appears in the first 24 hours or spreads to limbs, temperature is below 36°C or above 38°C, baby has not fed in more than 4-6 hours and is not waking, fontanelle (soft spot on head) is bulging, or baby has no wet nappy in 12 hours. Trust your instincts — if something feels very wrong, seek care.",
+    "category": "child_health",
+    "tags": ["newborn", "neonatal", "emergency", "baby", "jaundice", "fever", "navjat shishu"]
+  },
+  {
+    "id": "faq_075",
+    "question": "How do I manage eczema (skin allergy) in children?",
+    "answer": "Eczema management: keep skin well moisturised with fragrance-free thick creams or ointments applied immediately after bathing. Bathe in lukewarm water for no more than 10 minutes. Use gentle, fragrance-free soap and laundry detergent. Dress children in soft cotton clothing. Identify and avoid triggers — common ones include sweat, dust mites, pet dander, certain foods, and wool. Apply prescribed steroid creams only as directed. Keep fingernails short to reduce scratching damage. Consult a dermatologist or paediatrician for proper diagnosis and treatment.",
+    "category": "dermatology",
+    "tags": ["eczema", "atopic dermatitis", "skin allergy", "child", "itching", "khujli", "rash"]
+  },
+  {
+    "id": "faq_076",
+    "question": "What are the symptoms of liver disease?",
+    "answer": "Liver disease symptoms: jaundice (yellow skin and eyes), abdominal pain and swelling especially on the upper right side, dark urine, pale stools, persistent nausea and vomiting, fatigue, swollen legs and ankles, easy bruising, and in advanced disease, confusion. Common causes include hepatitis B and C, alcohol, and fatty liver disease (NAFLD). Regular liver function tests (LFT) help detect liver disease early. Avoid alcohol and self-medication, which are major liver stressors.",
+    "category": "liver",
+    "tags": ["liver disease", "jaundice", "hepatitis", "cirrhosis", "piliya", "jigar", "NAFLD"]
+  },
+  {
+    "id": "faq_077",
+    "question": "How do I give first aid for a snake bite?",
+    "answer": "Snake bite first aid: keep the person calm and immobile — movement spreads venom faster. Immobilise the bitten limb at or below heart level. Remove tight jewellery and clothing near the bite. Do NOT cut the wound, suck out venom, apply a tourniquet, or apply ice. Note the appearance of the snake if safe to do so. Transport to the nearest hospital with anti-snake venom (ASV) facility immediately. Most deaths from snake bite occur due to delay in reaching hospital. Call 108 — this is a life-threatening emergency.",
+    "category": "first_aid",
+    "tags": ["snake bite", "saanp", "venom", "anti-venom", "emergency", "108", "first aid"]
+  },
+  {
+    "id": "faq_078",
+    "question": "What are the recommended health screenings for adults above 40?",
+    "answer": "Recommended health screenings after age 40: blood pressure check (every year), fasting blood sugar and HbA1c (every 1-2 years), lipid profile (every 3-5 years), BMI and waist circumference (yearly), eye examination (every 2 years), dental check (every 6 months), cancer screenings — Pap smear for women every 3 years, mammogram for women every 1-2 years from age 45, and colonoscopy from age 45 every 10 years. Consult your doctor about vaccinations appropriate for your age.",
+    "category": "preventive_health",
+    "tags": ["health screening", "preventive health", "checkup", "cancer screening", "adults", "jaanch"]
+  },
+  {
+    "id": "faq_079",
+    "question": "How can I manage nausea and vomiting at home?",
+    "answer": "To manage nausea and vomiting: rest and avoid strong smells. Sip small amounts of clear fluids frequently (water, ORS, coconut water, ginger tea). Eat small, bland meals — crackers, plain rice, toast. Avoid spicy, fatty, and strong-smelling foods. Sit upright after eating. Ginger (adrak) in tea or ginger candies can help. Over-the-counter antiemetics like domperidone can be used. Seek doctor if vomiting lasts more than 24 hours, there is blood in vomit, or signs of dehydration appear.",
+    "category": "gastro",
+    "tags": ["nausea", "vomiting", "ulti", "matli", "morning sickness", "dehydration", "ginger"]
+  },
+  {
+    "id": "faq_080",
+    "question": "What are the symptoms of vitamin D deficiency?",
+    "answer": "Vitamin D deficiency symptoms: fatigue and tiredness, bone pain especially in the back and legs, muscle weakness, frequent infections, depression, and hair loss. Severe deficiency in children causes rickets (bone deformity) and in adults causes osteomalacia (soft bones). India has high rates of Vitamin D deficiency despite abundant sunshine. Safe sun exposure (15-30 mins daily on face and arms) helps. Dietary sources include eggs and fatty fish. Supplements are often needed — consult your doctor for the right dose.",
+    "category": "nutrition",
+    "tags": ["Vitamin D", "deficiency", "bone pain", "fatigue", "sunshine", "supplements", "D3"]
+  },
+  {
+    "id": "faq_081",
+    "question": "How do I manage a child's fever at home?",
+    "answer": "Managing child's fever: give paracetamol (Crocin) or ibuprofen in the correct dose for the child's weight — not age. Dress in light clothing. Encourage plenty of fluids. Sponge with lukewarm water if child is uncomfortable. Do not use cold or ice water. Continue breastfeeding infants. Seek medical care if: fever is above 39°C in babies under 3 months, above 40°C in any child, fever lasts more than 3 days, child has difficulty breathing, has a rash, is unusually drowsy, or refuses fluids.",
+    "category": "child_health",
+    "tags": ["child fever", "bukhar", "paracetamol", "crocin", "baby fever", "temperature", "bachche"]
+  },
+  {
+    "id": "faq_082",
+    "question": "What are the symptoms and treatment of chickenpox?",
+    "answer": "Chickenpox (varicella) symptoms: itchy rash starting on chest and spreading to face and limbs — red spots turn into fluid-filled blisters, then crust over. Accompanied by fever, fatigue, and loss of appetite. It is highly contagious. Treatment: calamine lotion for itch, paracetamol for fever (never aspirin in children), keep nails short to prevent scratching. Isolate the person until all blisters have crusted over (about 5-7 days). The chickenpox vaccine is available and recommended for children.",
+    "category": "infectious_disease",
+    "tags": ["chickenpox", "varicella", "matka", "rash", "blisters", "contagious", "vaccine"]
+  },
+  {
+    "id": "faq_083",
+    "question": "How do I care for someone with COVID-19 at home?",
+    "answer": "Home care for COVID-19: isolate the patient in a separate room with good ventilation. Provide plenty of fluids and nutritious food. Monitor temperature, oxygen saturation (SpO2 should be above 94%), and breathing. Give paracetamol for fever. Ensure the caregiver wears a mask and washes hands frequently. Seek immediate care if SpO2 drops below 94%, breathing becomes laboured, lips turn blue, confusion develops, or the person cannot stand. Older adults and those with diabetes or heart disease are at higher risk of deterioration.",
+    "category": "infectious_disease",
+    "tags": ["COVID", "corona", "home isolation", "oxygen", "SpO2", "pulse oximeter", "quarantine"]
+  },
+  {
+    "id": "faq_084",
+    "question": "What are the signs of hearing loss and what should I do?",
+    "answer": "Signs of hearing loss: difficulty following conversation especially in noisy environments, frequently asking people to repeat themselves, turning up the TV volume, missing parts of phone conversations, tinnitus (ringing in ears), and difficulty hearing high-pitched sounds. In children, watch for not responding to their name, speech delay, and poor school performance. Hearing loss can be caused by loud noise exposure, ear infections, age-related changes, or wax build-up. Consult an ENT specialist or audiologist — most causes are treatable.",
+    "category": "ent",
+    "tags": ["hearing loss", "deafness", "bahra", "tinnitus", "ear", "audiologist", "ENT"]
+  },
+  {
+    "id": "faq_085",
+    "question": "How can I lower my risk of getting type 2 diabetes?",
+    "answer": "Reduce Type 2 diabetes risk: maintain a healthy weight — even 5-7% weight loss significantly reduces risk. Exercise at least 150 minutes per week. Eat a diet rich in vegetables, whole grains, legumes, and fibre. Reduce intake of white rice, sugary drinks, fried foods, and processed snacks. Avoid smoking and limit alcohol. If you have prediabetes (HbA1c 5.7-6.4%), these lifestyle changes can prevent or delay progression. Get blood sugar checked every 1-2 years if you are overweight, above 35, have a family history of diabetes, or have PCOS.",
+    "category": "diabetes",
+    "tags": ["diabetes prevention", "prediabetes", "lifestyle", "weight", "blood sugar", "risk reduction"]
+  },
+  {
+    "id": "faq_086",
+    "question": "What are the symptoms of meningitis and is it an emergency?",
+    "answer": "Meningitis is inflammation of the membranes around the brain and spinal cord — it is a medical emergency. Symptoms in adults: sudden severe headache, high fever, stiff neck (difficulty touching chin to chest), sensitivity to light and sound, nausea, vomiting, and in severe cases, a non-blanching rash (purplish spots that do not fade when pressed). In infants: bulging fontanelle, high-pitched cry, refusal to feed, stiff body, and unusual drowsiness. Call 108 immediately — bacterial meningitis can be fatal within hours.",
+    "category": "neurology",
+    "tags": ["meningitis", "brain", "emergency", "stiff neck", "fever", "rash", "108"]
+  },
+  {
+    "id": "faq_087",
+    "question": "How do I manage dry cough at home?",
+    "answer": "For dry cough relief: drink warm fluids like honey-ginger tea, warm water with turmeric (haldi doodh), or warm soup. Gargle with warm salt water. Use a humidifier in dry conditions. Avoid smoking, dusty environments, and known allergens. Honey (1 teaspoon) can soothe throat in adults and children above 1 year. See a doctor if cough lasts more than 3 weeks, is accompanied by blood, produces thick yellow-green mucus, or is associated with significant weight loss or fever.",
+    "category": "respiratory",
+    "tags": ["dry cough", "khansi", "honey", "haldi", "sore throat", "cough", "throat"]
+  },
+  {
+    "id": "faq_088",
+    "question": "What is fatty liver disease and how do I manage it?",
+    "answer": "Fatty liver disease (NAFLD) occurs when fat accumulates in liver cells. It is increasingly common in India due to obesity, high-carbohydrate diets, and sedentary lifestyle. Most people have no symptoms; it is often detected on ultrasound. Management: lose weight gradually if overweight, avoid alcohol completely, reduce refined carbohydrates and sugary foods, exercise regularly, and control diabetes and cholesterol. There is no specific medication — lifestyle change is the treatment. If left untreated, it can progress to cirrhosis.",
+    "category": "liver",
+    "tags": ["fatty liver", "NAFLD", "liver", "obesity", "jigar", "ultrasound", "weight loss"]
+  },
+  {
+    "id": "faq_089",
+    "question": "How do I know if I need glasses or an eye check?",
+    "answer": "You may need an eye check if you experience: frequent headaches after reading or screen use, squinting to see clearly, difficulty seeing far objects (blurred road signs), difficulty reading small print up close, eye strain or fatigue after visual tasks, seeing halos around lights at night, or double vision. Children should have an eye check before starting school and whenever teachers notice squinting. Adults above 40 should have regular eye checks as presbyopia (difficulty reading up close) is common.",
+    "category": "eye_health",
+    "tags": ["glasses", "vision", "eye test", "blur", "aankh", "spectacles", "shortsighted"]
+  },
+  {
+    "id": "faq_090",
+    "question": "What is the correct dose of paracetamol for children?",
+    "answer": "Paracetamol dose for children is based on weight — 10-15 mg per kg of body weight per dose. This can be given every 4-6 hours, maximum 4 doses in 24 hours. Example: a 10 kg child can receive 100-150 mg per dose. Crocin suspension (125 mg/5ml or 250 mg/5ml) is commonly used. Never exceed the recommended dose — paracetamol overdose can cause serious liver damage. Do not give paracetamol to infants below 3 months without medical advice. Always use the measuring syringe provided.",
+    "category": "child_health",
+    "tags": ["paracetamol", "child dose", "crocin", "fever", "kids medicine", "weight-based dose"]
+  },
+  {
+    "id": "faq_091",
+    "question": "What are the symptoms and management of acid reflux in infants?",
+    "answer": "Infant acid reflux (GERD) symptoms: frequent spitting up, arching the back during or after feeding, crying and irritability especially after feeding, poor weight gain, and refusal to eat. Most infants outgrow reflux by 12-18 months. Management: feed smaller amounts more frequently, burp well during and after feeds, keep baby upright for 20-30 minutes after feeding, and avoid overfeeding. If symptoms are severe, baby is not gaining weight, or there is persistent vomiting, consult a paediatrician.",
+    "category": "child_health",
+    "tags": ["infant reflux", "GERD", "baby", "spitting up", "feeding", "paediatrics"]
+  },
+  {
+    "id": "faq_092",
+    "question": "How can I manage seasonal allergies (hay fever)?",
+    "answer": "Managing seasonal allergies: monitor pollen counts and stay indoors on high pollen days. Keep windows closed during peak pollen season. Shower after being outdoors. Use air purifiers with HEPA filters indoors. Wear sunglasses outdoors to protect eyes. Avoid drying clothes outside on high pollen days. Over-the-counter antihistamines (cetirizine, loratadine) and nasal steroid sprays are effective. Avoid allergen triggers like dust mites, pet dander, and mould. Consult an allergist if symptoms are severe or uncontrolled.",
+    "category": "respiratory",
+    "tags": ["allergy", "hay fever", "pollen", "antihistamine", "sneezing", "nasal", "allergic rhinitis"]
+  },
+  {
+    "id": "faq_093",
+    "question": "What are safe exercises during pregnancy?",
+    "answer": "Safe exercises during pregnancy (with doctor's approval): brisk walking, swimming, prenatal yoga, low-impact aerobics, and stationary cycling. Exercise for 20-30 minutes most days. Benefits include reduced back pain, improved mood, better sleep, and easier labour. Avoid contact sports, high-impact activities, exercises lying flat on your back after the first trimester, hot yoga, and scuba diving. Stop exercising and consult your doctor immediately if you experience vaginal bleeding, dizziness, shortness of breath, chest pain, or uterine contractions.",
+    "category": "pregnancy",
+    "tags": ["pregnancy", "exercise", "prenatal yoga", "walking", "safe exercise", "garbhavastha"]
+  },
+  {
+    "id": "faq_094",
+    "question": "How do I manage high blood sugar (hyperglycemia) at home?",
+    "answer": "If blood sugar is high (above 250 mg/dL): drink plenty of water, avoid sugary foods and drinks, take your prescribed medication or insulin as directed, and check blood sugar again after 2 hours. Do light walking if blood sugar is below 300 mg/dL and you feel well. Seek emergency care if blood sugar is above 300 mg/dL repeatedly, if you feel very unwell, have vomiting or abdominal pain, or if you detect ketones in urine. Do not adjust insulin doses without medical guidance.",
+    "category": "diabetes",
+    "tags": ["hyperglycemia", "high blood sugar", "diabetes", "insulin", "ketones", "DKA"]
+  },
+  {
+    "id": "faq_095",
+    "question": "What is the correct way to take oral rehydration salts (ORS)?",
+    "answer": "Preparing ORS correctly: dissolve one ORS packet in exactly 1 litre of clean water — do not use less water as this makes it too concentrated. Stir well. Give sips frequently. For adults with diarrhea: 200-400 ml after each loose stool. For children: 50-100 ml after each loose stool (younger children) or 100-200 ml (older children). ORS should be used within 24 hours of preparation and kept in a cool place. If ORS is not available, a home solution can be made with 1 litre water, 6 teaspoons sugar, and half a teaspoon salt.",
+    "category": "gastro",
+    "tags": ["ORS", "oral rehydration", "diarrhea", "dehydration", "jeevan jal", "loose motion"]
+  },
+  {
+    "id": "faq_096",
+    "question": "What are the signs and management of low blood sugar (hypoglycemia)?",
+    "answer": "Hypoglycemia (blood sugar below 70 mg/dL) signs: shakiness, sweating, rapid heartbeat, dizziness, confusion, blurred vision, headache, and in severe cases, loss of consciousness. Immediate treatment (15-15 rule): take 15 grams of fast-acting carbohydrates — 3-4 glucose tablets, half a cup of fruit juice, or 3-4 teaspoons of sugar dissolved in water. Wait 15 minutes and recheck blood sugar. Repeat if still below 70 mg/dL. Follow with a snack containing protein and carbohydrate. If the person is unconscious, do not give anything by mouth — call 108 immediately.",
+    "category": "diabetes",
+    "tags": ["hypoglycemia", "low blood sugar", "diabetes", "shakiness", "glucose", "insulin", "sugar kam hona"]
+  },
+  {
+    "id": "faq_097",
+    "question": "How do I handle a dog or animal bite?",
+    "answer": "Animal bite first aid: wash the wound thoroughly with soap and running water for at least 10-15 minutes — this is the single most important step. Apply an antiseptic like Betadine. Go to a doctor or hospital immediately. You will need anti-rabies vaccination (given on days 0, 3, 7, 14, and 28). Deep or multiple bites may also require rabies immunoglobulin (RIG) injection on day 0. Do not delay — rabies is fatal once symptoms appear. Also ensure tetanus vaccination is up to date.",
+    "category": "first_aid",
+    "tags": ["dog bite", "animal bite", "rabies", "anti-rabies vaccine", "kutta kaatna", "emergency"]
+  },
+  {
+    "id": "faq_098",
+    "question": "What are the symptoms and causes of frequent headaches?",
+    "answer": "Frequent headaches have many causes: tension headaches (most common) — tight pressure around the forehead, often from stress or poor posture; migraines — severe pulsating pain, often one-sided with nausea; cluster headaches — intense pain around one eye; and secondary causes like high blood pressure, dehydration, vision problems, sinus infections, or excessive painkiller use. Maintain a headache diary to identify patterns and triggers. Consult a doctor if headaches are sudden and severe, worsen progressively, are accompanied by neurological symptoms, or occur daily.",
+    "category": "neurology",
+    "tags": ["headache", "sir dard", "migraine", "tension headache", "frequent", "causes"]
+  },
+  {
+    "id": "faq_099",
+    "question": "How do I care for my teeth and gums properly?",
+    "answer": "Proper dental care: brush teeth twice daily for 2 minutes with a soft-bristled toothbrush and fluoride toothpaste. Replace toothbrush every 3 months. Floss daily to remove plaque between teeth. Use mouthwash after brushing. Limit sugary foods and drinks. Avoid tobacco — it causes gum disease and oral cancer. Visit a dentist every 6 months for check-up and cleaning. Drink fluoridated water if available. In children, supervise brushing until age 7-8. Dental decay (caries) is preventable — start oral hygiene early in childhood.",
+    "category": "oral_health",
+    "tags": ["dental care", "teeth", "brushing", "flossing", "oral health", "dentist", "daant"]
+  },
+  {
+    "id": "faq_100",
+    "question": "What should I know about taking medicines during breastfeeding?",
+    "answer": "Most common medications are safe during breastfeeding, but some can pass into breast milk and affect the baby. Safe options: paracetamol, ibuprofen (avoid in first weeks postpartum), most antibiotics (amoxicillin, azithromycin). Avoid: aspirin, codeine, certain antidepressants, and most herbal supplements without medical advice. Always inform your doctor and pharmacist that you are breastfeeding before being prescribed any medication. Never stop breastfeeding without medical advice — the benefits of breastfeeding usually outweigh the risks of most medications.",
+    "category": "pregnancy",
+    "tags": ["breastfeeding", "medicine", "medication safety", "lactation", "doodh pilana", "dawa"]
   }
 ]
