@@ -5,6 +5,7 @@ let seconds = 0;
 let audioBlob = null;
 
 const micBtn = document.getElementById("mic-btn");
+// These buttons may not exist in the HTML — guard every reference
 const stopBtn = document.getElementById("stop-btn");
 const analyzeBtn = document.getElementById("analyze-btn");
 const resetBtn = document.getElementById("reset-btn");
@@ -12,11 +13,71 @@ const micStatus = document.getElementById("mic-status");
 const timerEl = document.getElementById("timer");
 const timerCount = document.getElementById("timer-count");
 
+// ─── Helpers ───────────────────────────────────────────────
+
+function setAnalyzeDisabled(val) {
+  if (analyzeBtn) analyzeBtn.disabled = val;
+}
+function setStopDisabled(val) {
+  if (stopBtn) stopBtn.disabled = val;
+}
+
 // ─── Recording ─────────────────────────────────────────────
 
+// ─── Check mic permission state on load ───────────────────
+(async () => {
+  if (!navigator.permissions) return;
+  try {
+    const perm = await navigator.permissions.query({ name: "microphone" });
+    if (perm.state === "denied") {
+      showMicDenied();
+    }
+    perm.onchange = () => {
+      if (perm.state === "denied") showMicDenied();
+      else clearMicError();
+    };
+  } catch (_) {}
+})();
+
+function showMicDenied() {
+  if (micStatus) {
+    micStatus.innerHTML = `
+      🚫 Mic blocked by browser.<br>
+      <small style="color:var(--text-muted)">Click the 🔒 lock icon in your address bar → <b>Microphone</b> → <b>Allow</b>, then refresh.</small>`;
+  }
+  micBtn.classList.add("mic-denied");
+  const stickyStatus = document.getElementById("sticky-status-text");
+  if (stickyStatus) stickyStatus.innerHTML = "🚫 Mic blocked — click 🔒 in address bar → Allow mic → Refresh";
+  const mobileMicStatus = document.getElementById("mic-status-mobile");
+  if (mobileMicStatus) mobileMicStatus.innerHTML = micStatus ? micStatus.innerHTML : "";
+}
+
+function clearMicError() {
+  if (micStatus) micStatus.textContent = "Tap mic and speak your symptoms";
+  micBtn.classList.remove("mic-denied");
+}
+
 micBtn.addEventListener("click", async () => {
+  // ── TOGGLE: if already recording, stop it ──
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    stopRecording();
+    return;
+  }
+
+  // Pre-check permission before attempting
+  if (navigator.permissions) {
+    try {
+      const perm = await navigator.permissions.query({ name: "microphone" });
+      if (perm.state === "denied") {
+        showMicDenied();
+        return;
+      }
+    } catch (_) {}
+  }
+
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    clearMicError();
     audioChunks = [];
     mediaRecorder = new MediaRecorder(stream);
 
@@ -28,28 +89,35 @@ micBtn.addEventListener("click", async () => {
       audioBlob = new Blob(audioChunks, { type: "audio/wav" });
       const url = URL.createObjectURL(audioBlob);
       const preview = document.getElementById("audio-preview");
-      preview.src = url;
+      if (preview) preview.src = url;
       showElement("audio-preview-card");
-      analyzeBtn.disabled = false;
-      micStatus.textContent = "Recording saved. Click Analyze to continue.";
+      // Auto-analyze immediately — no manual button needed
+      analyzeAudio();
     };
 
     mediaRecorder.start();
     micBtn.classList.add("recording");
-    micStatus.textContent = "Recording... speak your symptoms clearly";
-    stopBtn.disabled = false;
-    analyzeBtn.disabled = true;
+    if (micStatus) micStatus.textContent = "Recording… tap mic again to stop";
+    setStopDisabled(false);
+    setAnalyzeDisabled(true);
     showElement("timer");
     seconds = 0;
-    timerCount.textContent = "0";
+    if (timerCount) timerCount.textContent = "0";
     timerInterval = setInterval(() => {
       seconds++;
-      timerCount.textContent = seconds;
+      if (timerCount) timerCount.textContent = seconds;
       if (seconds >= 60) stopRecording();
     }, 1000);
 
   } catch (err) {
-    micStatus.textContent = "Microphone access denied. Please allow mic permissions.";
+    console.error("Mic error:", err);
+    if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+      showMicDenied();
+    } else if (err.name === "NotFoundError") {
+      if (micStatus) micStatus.textContent = "No microphone found. Please connect a mic and try again.";
+    } else {
+      if (micStatus) micStatus.textContent = `Mic error: ${err.message}`;
+    }
   }
 });
 
@@ -60,27 +128,38 @@ function stopRecording() {
   }
   clearInterval(timerInterval);
   micBtn.classList.remove("recording");
-  stopBtn.disabled = true;
+  setStopDisabled(true);
   hideElement("timer");
 }
 
-stopBtn.addEventListener("click", stopRecording);
+if (stopBtn) stopBtn.addEventListener("click", stopRecording);
 
-resetBtn.addEventListener("click", () => {
-  stopRecording();
-  audioBlob = null;
-  audioChunks = [];
-  analyzeBtn.disabled = true;
-  micStatus.textContent = "Tap the mic and speak your symptoms";
-  hideElement("audio-preview-card");
-  hideElement("results-panel");
-  hideElement("status-bar");
-  document.getElementById("audio-preview").src = "";
-});
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    stopRecording();
+    audioBlob = null;
+    audioChunks = [];
+    setAnalyzeDisabled(true);
+    if (micStatus) micStatus.textContent = "Tap the mic and speak your symptoms";
+    hideElement("audio-preview-card");
+    hideElement("results-panel");
+    hideElement("status-bar");
+    const preview = document.getElementById("audio-preview");
+    if (preview) preview.src = "";
+  });
+}
 
-// ─── Analyze ───────────────────────────────────────────────
+// ─── Analyze (auto-called after recording stops) ───────────
 
-analyzeBtn.addEventListener("click", async () => {
+function setStatus(msg) {
+  if (micStatus) micStatus.textContent = msg;
+  const sticky = document.getElementById("sticky-status-text");
+  if (sticky) sticky.textContent = msg;
+  const mob = document.getElementById("mic-status-mobile");
+  if (mob) mob.textContent = msg;
+}
+
+async function analyzeAudio() {
   if (!audioBlob) return;
 
   const langCode = document.getElementById("language-select").value;
@@ -88,12 +167,15 @@ analyzeBtn.addEventListener("click", async () => {
   formData.append("audio", audioBlob, "recording.wav");
   formData.append("language_code", langCode);
 
-  analyzeBtn.disabled = true;
+  micBtn.disabled = true;
+  setStatus("Transcribing your voice...");
   showStatus("Transcribing your voice...");
   hideElement("results-panel");
 
   try {
+    setStatus("Analyzing symptoms...");
     showStatus("Analyzing symptoms...");
+
     const response = await fetch(`${API_BASE}/voice/triage`, {
       method: "POST", body: formData
     });
@@ -106,14 +188,21 @@ analyzeBtn.addEventListener("click", async () => {
     const data = await response.json();
     renderTriageResults(data);
     hideStatus();
+    setStatus("Analysis complete. Tap mic to record again.");
     showElement("results-panel");
 
   } catch (err) {
     hideStatus();
-    micStatus.textContent = `Error: ${err.message}`;
-    analyzeBtn.disabled = false;
+    setStatus(`Error: ${err.message}`);
   }
-});
+
+  micBtn.disabled = false;
+}
+
+// Keep analyze button wired up as fallback if it exists in HTML
+if (analyzeBtn) {
+  analyzeBtn.addEventListener("click", analyzeAudio);
+}
 
 // ─── Render Results ────────────────────────────────────────
 
@@ -124,32 +213,29 @@ function renderTriageResults(data) {
   // Triage level box
   const levelBox = document.getElementById("triage-level-box");
   const level = triage.triage_level || "LOW";
-  levelBox.textContent = level;
-  levelBox.className = `triage-level-box level-${level.toLowerCase()}`;
+  if (levelBox) {
+    levelBox.textContent = level;
+    levelBox.className = `triage-level-box level-${level.toLowerCase()}`;
+  }
 
-  // Triage title + urgency
   const titleEl = document.getElementById("triage-level-title");
   if (titleEl) titleEl.textContent = level === "HIGH" ? "Urgent" : level === "MEDIUM" ? "Moderate" : "Low Priority";
 
   const urgencyEl = document.getElementById("urgency-message");
   if (urgencyEl) urgencyEl.textContent = triage.urgency_message || "—";
 
-  // Transcript + detected language
   const transcriptEl = document.getElementById("transcript-text");
   if (transcriptEl) transcriptEl.textContent = data.transcript || "—";
 
   const langBadge = document.getElementById("detected-lang-badge");
   if (langBadge) langBadge.textContent = LANGUAGE_NAMES[detectedLang] || detectedLang;
 
-  // Summary
   const summaryEl = document.getElementById("summary-text");
   if (summaryEl) summaryEl.textContent = triage.summary || "—";
 
-  // Voice preview text (urgency message shown in green bar)
   const voicePreview = document.getElementById("voice-preview-text");
   if (voicePreview) voicePreview.textContent = triage.urgency_message || "";
 
-  // Conditions
   const condList = document.getElementById("conditions-list");
   if (condList) {
     condList.innerHTML = "";
@@ -158,14 +244,11 @@ function renderTriageResults(data) {
       li.textContent = c;
       condList.appendChild(li);
     });
-
   }
 
-  // Recommended action
   const actionEl = document.getElementById("recommended-action");
   if (actionEl) actionEl.textContent = triage.recommended_action || "—";
 
-  // Follow-up questions
   const fqList = document.getElementById("followup-list");
   if (fqList) {
     fqList.innerHTML = "";
@@ -183,13 +266,13 @@ function renderTriageResults(data) {
       speakBtn.disabled = true;
       speakBtn.textContent = "Loading...";
       try {
-        const formData = new FormData();
-        formData.append("text", triage.summary);
-        formData.append("language_code", detectedLang);
-        formData.append("speaker", "anushka");
+        const fd = new FormData();
+        fd.append("text", triage.summary);
+        fd.append("language_code", detectedLang);
+        fd.append("speaker", "anushka");
 
         const response = await fetch(`${API_BASE}/voice/speak`, {
-          method: "POST", body: formData
+          method: "POST", body: fd
         });
 
         if (!response.ok) throw new Error("TTS request failed");
@@ -214,7 +297,7 @@ function renderTriageResults(data) {
         </svg> Speak`;
     };
   }
-  // Initialize follow-up chat with this triage context
+
   initFollowup(triage, detectedLang);
 }
 
@@ -230,11 +313,13 @@ function initFollowup(context, lang) {
   triageContext = context;
   followupLang = lang;
   followupHistory = [];
-  document.getElementById("chat-history").innerHTML = "";
+  const ch = document.getElementById("chat-history");
+  if (ch) ch.innerHTML = "";
 }
 
 function addBubble(text, role) {
   const history = document.getElementById("chat-history");
+  if (!history) return;
   const bubble = document.createElement("div");
   bubble.className = `chat-bubble ${role}`;
   bubble.innerHTML = `<div class="bubble-label">${role === "user" ? "You" : "Swasthya Setu"}</div>${text}`;
@@ -247,9 +332,8 @@ async function sendFollowup(questionText, audioBlob = null) {
 
   const status = document.getElementById("followup-status");
   const sendBtn = document.getElementById("followup-send-btn");
-  status.style.display = "block";
-  status.textContent = "Thinking...";
-  sendBtn.disabled = true;
+  if (status) { status.style.display = "block"; status.textContent = "Thinking..."; }
+  if (sendBtn) sendBtn.disabled = true;
 
   const formData = new FormData();
   if (audioBlob) {
@@ -272,18 +356,15 @@ async function sendFollowup(questionText, audioBlob = null) {
     const displayQuestion = data.question || questionText || "🎙️ Voice question";
     addBubble(displayQuestion, "user");
 
-    // Create assistant bubble first
     const history = document.getElementById("chat-history");
     const aiBubble = document.createElement("div");
     aiBubble.className = "chat-bubble assistant";
     aiBubble.innerHTML = `<div class="bubble-label">Swasthya Setu</div>${data.answer}`;
-    history.appendChild(aiBubble);
-    history.scrollTop = history.scrollHeight;
+    if (history) { history.appendChild(aiBubble); history.scrollTop = history.scrollHeight; }
 
     followupHistory.push({ question: displayQuestion, answer: data.answer });
 
-    // TTS — voice output priority
-    status.textContent = "Speaking...";
+    if (status) status.textContent = "Speaking...";
     const ttsForm = new FormData();
     ttsForm.append("text", data.answer);
     ttsForm.append("language_code", data.detected_language || followupLang);
@@ -296,19 +377,12 @@ async function sendFollowup(questionText, audioBlob = null) {
     if (ttsRes.ok) {
       const blob = await ttsRes.blob();
       const url = URL.createObjectURL(blob);
-
-      // Embed audio player in bubble
       const audioEl = document.createElement("audio");
       audioEl.src = url;
       audioEl.controls = true;
       audioEl.style.cssText = "width:100%; height:32px; margin-top:6px;";
       aiBubble.appendChild(audioEl);
-
-      // Auto play
-      const autoAudio = new Audio(url);
-      autoAudio.play();
-    } else {
-      console.error("TTS failed:", await ttsRes.text());
+      new Audio(url).play();
     }
 
   } catch (e) {
@@ -316,66 +390,76 @@ async function sendFollowup(questionText, audioBlob = null) {
     console.error(e);
   }
 
-  status.style.display = "none";
-  sendBtn.disabled = false;
-  document.getElementById("followup-text-input").value = "";
+  if (status) status.style.display = "none";
+  if (sendBtn) sendBtn.disabled = false;
+  const textInput = document.getElementById("followup-text-input");
+  if (textInput) textInput.value = "";
 }
 
 // ─── Follow-up Voice Input ───────────────────────────────
 
 const followupMicBtn = document.getElementById("followup-mic-btn");
 
-followupMicBtn.addEventListener("click", async () => {
-  // Toggle: if recording, stop it
-  if (followupRecorder && followupRecorder.state === "recording") {
-    stopFollowupRecording();
-    return;
-  }
+if (followupMicBtn) {
+  followupMicBtn.addEventListener("click", async () => {
+    if (followupRecorder && followupRecorder.state === "recording") {
+      stopFollowupRecording();
+      return;
+    }
 
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    followupChunks = [];
-    followupRecorder = new MediaRecorder(stream);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      followupChunks = [];
+      followupRecorder = new MediaRecorder(stream);
 
-    followupRecorder.ondataavailable = e => {
-      if (e.data.size > 0) followupChunks.push(e.data);
-    };
+      followupRecorder.ondataavailable = e => {
+        if (e.data.size > 0) followupChunks.push(e.data);
+      };
 
-    followupRecorder.onstop = () => {
-      const blob = new Blob(followupChunks, { type: "audio/wav" });
-      stream.getTracks().forEach(t => t.stop());
-      // Auto-send voice question
-      sendFollowup("", blob);
-    };
+      followupRecorder.onstop = () => {
+        const blob = new Blob(followupChunks, { type: "audio/wav" });
+        stream.getTracks().forEach(t => t.stop());
+        sendFollowup("", blob);
+      };
 
-    followupRecorder.start();
-    followupMicBtn.classList.add("recording");
-    document.getElementById("followup-status").style.display = "block";
-    document.getElementById("followup-status").textContent = "● Recording... tap mic again to stop";
+      followupRecorder.start();
+      followupMicBtn.classList.add("recording");
+      const fs = document.getElementById("followup-status");
+      if (fs) { fs.style.display = "block"; fs.textContent = "● Recording… tap mic again to stop"; }
 
-  } catch (err) {
-    document.getElementById("followup-status").textContent = "Microphone access denied.";
-  }
-});
+    } catch (err) {
+      const fs = document.getElementById("followup-status");
+      if (fs) fs.textContent = "Microphone access denied.";
+    }
+  });
+}
 
 function stopFollowupRecording() {
   if (followupRecorder && followupRecorder.state !== "inactive") {
     followupRecorder.stop();
   }
-  followupMicBtn.classList.remove("recording");
-  document.getElementById("followup-status").textContent = "Processing...";
+  if (followupMicBtn) followupMicBtn.classList.remove("recording");
+  const fs = document.getElementById("followup-status");
+  if (fs) fs.textContent = "Processing...";
 }
 
-// Wire up text input send
-document.getElementById("followup-send-btn").addEventListener("click", () => {
-  const input = document.getElementById("followup-text-input");
-  const text = input.value.trim();
-  if (text) sendFollowup(text);
-});
+// ─── Text follow-up send ─────────────────────────────────
 
-document.getElementById("followup-text-input").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    const text = e.target.value.trim();
+const followupSendBtn = document.getElementById("followup-send-btn");
+if (followupSendBtn) {
+  followupSendBtn.addEventListener("click", () => {
+    const input = document.getElementById("followup-text-input");
+    const text = input ? input.value.trim() : "";
     if (text) sendFollowup(text);
-  }
-});
+  });
+}
+
+const followupTextInput = document.getElementById("followup-text-input");
+if (followupTextInput) {
+  followupTextInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const text = e.target.value.trim();
+      if (text) sendFollowup(text);
+    }
+  });
+}
